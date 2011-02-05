@@ -2,4 +2,12 @@ import edu.ucdavis.jr.*;
 
 public class Landlord {
   
+  private cap void () orderQueue;
+  private cap void () closingAlarm;
+  
+  public Landlord(cap void () closingAlarm, cap void () orderQueue) {
+    this.orderQueue = orderQueue;
+    this.closingAlarm = closingAlarm;
+  }
+  
 }
