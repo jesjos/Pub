@@ -1,5 +1,27 @@
 import edu.ucdavis.jr.*;
+import java.util.ArrayList;
 
 public class Assistant {
+  private ArrayList<cap void (Order)> tables;
+  
+  public Assistant() {
+    this.tables = new ArrayList<cap void (Order)>();
+  }
+  
+  process work {
+    int tables = table.size();
+    int i = 0;
+    while (!isClosingTime()) {
+      cleanTable(i);
+      i++;
+      JR.nap(Constants.REST);
+    }
+  }
+  
+  public void cleanTable();
+  
+  public boolean isClosingTime() {
+    return false;
+  }
   
 }
