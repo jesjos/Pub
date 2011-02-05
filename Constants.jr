@@ -11,12 +11,16 @@ class Constants {
   public static final int REST = 30;
   
   // Customers
-  public static final int CUSTOMER_DROPIN = 30;
+  public static final int CUSTOMER_DROPINTIME = 30;
   
   // Tables
   public static final int N_OF_TABLES = 30;
   public static final int TABLE_SPACE = 30;
-
+  
+  // Resources
+  public static final int GLASSES = 30;
+  public static final int CUPS = 30;
+  
   
   
 }

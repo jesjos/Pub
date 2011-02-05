@@ -1,6 +1,30 @@
 import edu.ucdavis.jr.*;
 
+/**
+ * Central controlling class for a pub simulation.
+ * Starts all processes, generates statistics.
+ * @author Jesper Josefsson
+ * @author Anmar Khazal
+ */
+
 public class Pub {
+  
+  private cap void () closingAlarm = new op void ();
+  
+  public Pub () {
+    
+  }
+  
+  process test {
+    System.out.println("First test");
+    call closingAlarm();
+  }
+  
+  process test2 {
+    receive closingAlarm();
+    System.out.println("Received!");
+  }
+  
   
   public static void main(String[] args) {
     Pub p = new Pub();
