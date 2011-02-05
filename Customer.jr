@@ -1,5 +1,14 @@
 import edu.ucdavis.jr.*;
 
 public class Customer {
+  private cap void () orderQueue;
+  private cap void (Order) myChannel;
+  
+  public Customer(cap void () orderQueue) {
+    this.orderQueue = orderQueue;
+    this.myChannel = new op void (Order);
+  }
+  
+  
   
 }

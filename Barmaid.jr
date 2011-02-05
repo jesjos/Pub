@@ -8,4 +8,7 @@ public class Barmaid {
     this.orderQueue = orderQueue;
   }
   
+  process serve {
+    
+  }
 }

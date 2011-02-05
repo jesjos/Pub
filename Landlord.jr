@@ -5,11 +5,13 @@ public class Landlord {
   
   private cap void () orderQueue;
   private cap void () closingAlarm;
+  private cap void (cap void()) handshakeQueue;
   private ArrayList<cap void ()> customers; 
   
   public Landlord(cap void () closingAlarm, cap void () orderQueue) {
     this.orderQueue = orderQueue;
     this.closingAlarm = closingAlarm;
+    handshakeQueue = new op void (cap void ());
     customers = new ArrayList<cap void()>();
   }
   
@@ -17,6 +19,10 @@ public class Landlord {
     receive closingAlarm();
     for (cap void() c : customers)
       send c();
+  }
+  
+  process serve {
+    
   }
   
 }
