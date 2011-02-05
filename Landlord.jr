@@ -1,13 +1,22 @@
 import edu.ucdavis.jr.*;
+import java.util.ArrayList;
 
 public class Landlord {
   
   private cap void () orderQueue;
   private cap void () closingAlarm;
+  private ArrayList<cap void ()> customers; 
   
   public Landlord(cap void () closingAlarm, cap void () orderQueue) {
     this.orderQueue = orderQueue;
     this.closingAlarm = closingAlarm;
+    customers = new ArrayList<cap void()>();
+  }
+  
+  process checkForLastCall {
+    receive closingAlarm();
+    for (cap void() c : customers)
+      send c();
   }
   
 }

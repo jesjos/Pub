@@ -21,6 +21,10 @@ class Constants {
   public static final int GLASSES = 30;
   public static final int CUPS = 30;
   
+  public enum Order {
+    BEER, CAPPU, CHOCO;
+  }
+  
   
   
 }
