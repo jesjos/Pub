@@ -1,6 +1,6 @@
+import edu.ucdavis.jr.*;
+
 public class Pub {
-  
-  
   
   public static void main(String[] args) {
     Pub p = new Pub();
