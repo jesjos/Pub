@@ -1,0 +1,22 @@
+/**
+ * A class containing constants used in the pub app.
+ */
+
+class Constants {
+  
+  // Assistant
+  public static final int GC_WASH = 30;
+  public static final int GC_COLLECT = 30;
+  public static final int GC_REPLACE = 30;
+  public static final int REST = 30;
+  
+  // Customers
+  public static final int CUSTOMER_DROPIN = 30;
+  
+  // Tables
+  public static final int N_OF_TABLES = 30;
+  public static final int TABLE_SPACE = 30;
+
+  
+  
+}
