@@ -3,4 +3,23 @@ import java.util.ArrayList;
 
 public class Cupboard {
   
+  private ArrayList<Glass> glasses;
+  private ArrayList<Cup> cups;
+  
+  
+  public class Glass {
+    
+  }
+  
+  public class Cup {
+    
+  }
+  
+  public class Milk {
+    
+  }
+  
+  public class Chocolate {
+    
+  }
 }

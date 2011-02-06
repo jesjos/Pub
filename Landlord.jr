@@ -15,6 +15,10 @@ public class Landlord {
     customers = new ArrayList<cap void()>();
   }
   
+  public cap void (cap void ()) getHandShakeQueue() {
+    return handshakeQueue;
+  }
+  
   process checkForLastCall {
     receive closingAlarm();
     for (cap void() c : customers)

@@ -1,15 +1,16 @@
 import edu.ucdavis.jr.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Assistant {
-  private ArrayList<cap void (Order)> tables;
+  private ArrayList<cap void (Constants.Order)> tables;
   
-  public Assistant() {
-    this.tables = new ArrayList<cap void (Order)>();
+  public Assistant(Collection<cap void (Constants.Order)> tables) {
+    this.tables = new ArrayList<cap void (Constants.Order)>(tables);
   }
   
   process work {
-    int tables = table.size();
+    int nTables = tables.size();
     int i = 0;
     while (!isClosingTime()) {
       cleanTable(i);
@@ -18,7 +19,9 @@ public class Assistant {
     }
   }
   
-  public void cleanTable();
+  public void cleanTable(int t) {
+    
+  }
   
   public boolean isClosingTime() {
     return false;
