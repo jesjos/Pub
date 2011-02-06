@@ -3,14 +3,19 @@ import java.util.ArrayList;
 
 public class Landlord extends Server {
   
-  private cap void (cap Resource (Constants.Order)) orderQueue;
   private cap void () closingAlarm;
   private cap void (cap void()) handshakeQueue;
   private ArrayList<cap void ()> customers; 
   
-  public Landlord(cap void () closingAlarm, cap void (cap Resource(Constants.Order)) orderQueue, cap void () tap) {
-    super(tap);
-    this.orderQueue = orderQueue;
+  public Landlord(cap void () closingAlarm,
+                  cap void (cap Resource (Constants.Order)) orderQueue, 
+                  cap void ()           tap,
+                  cap Cupboard.Glass () getGlass,
+                  cap Cupboard.Cup ()   serveCup
+                  ) {
+                    
+    super(orderQueue, tap, getGlass, serveCup);
+    
     this.closingAlarm = closingAlarm;
     handshakeQueue = new op void (cap void ());
     customers = new ArrayList<cap void()>();

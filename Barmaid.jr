@@ -1,13 +1,13 @@
 import edu.ucdavis.jr.*;
 
-public class Barmaid {
+public class Barmaid extends Server {
   
-  private cap void (cap Resource (Constants.Order)) orderQueue;
-  private cap void () tap;
-  
-  public Barmaid (cap void (cap Resource (Constants.Order)) orderQueue, cap void () tap) {
-    this.orderQueue = orderQueue;
-    this.tap = tap;
+  public Barmaid (cap void (cap Resource (Constants.Order)) orderQueue, 
+                  cap void ()           tap,
+                  cap Cupboard.Glass () getGlass,
+                  cap Cupboard.Cup ()   serveCup
+                  ) {
+    super(orderQueue, tap, getGlass, serveCup);
   }
   
   process serve {

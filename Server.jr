@@ -3,16 +3,27 @@ import edu.ucdavis.jr.*;
 public class Server {
   
   protected cap void () tap;
+  protected cap void (cap Resource (Constants.Order)) orderQueue;
+  protected cap Cupboard.Glass () getGlass;
+  protected cap Cupboard.Cup () serveCup;
   
-  public Server (cap void () tap) {
+  public Server (
+    cap void (cap Resource (Constants.Order)) orderQueue, 
+    cap void ()           tap,
+    cap Cupboard.Glass () getGlass,
+    cap Cupboard.Cup ()   serveCup
+    ) {
     this.tap = tap;
+    this.orderQueue = orderQueue;
+    this.serveCup   = serveCup;
+    this.getGlass = getGlass;
   }
   
   protected Cupboard.Glass getBeer() {
+    Cupboard.Glass glass = getGlass();
     receive tap();
-    // Get a glass from the cupboard
     send tap();
-    return new Cupboard.Glass();
+    return glass;
     
   }
   protected Cupboard.Cup getCappu() {

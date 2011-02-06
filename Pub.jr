@@ -34,10 +34,10 @@ public class Pub {
       tables.add(new Table()); 
     }
     
-    landlord = new Landlord(closingAlarm, orderQueue, tap);
-    new Barmaid(orderQueue, tap);
-    new Cupboard();
+    Cupboard c = new Cupboard();
     new Assistant(tables);
+    new Barmaid(orderQueue, tap, c.refGlass(), c.refCup());
+    landlord = new Landlord(closingAlarm, orderQueue, tap, c.refGlass(), c.refCup());
     
     handshakeQueue = landlord.getHandShakeQueue();
     
