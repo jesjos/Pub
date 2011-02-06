@@ -40,6 +40,8 @@ public class Pub {
     new Assistant(tables);
     
     handshakeQueue = landlord.getHandShakeQueue();
+    
+    send tap();
   }
   
   process addCustomer {
@@ -49,7 +51,6 @@ public class Pub {
       System.out.println("Added a customer");
     }
   }
-  
   
   public static void main(String[] args) {
     Pub p = new Pub();

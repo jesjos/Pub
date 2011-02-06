@@ -1,0 +1,25 @@
+import edu.ucdavis.jr.*;
+
+public class Server {
+  
+  protected cap void () tap;
+  protected cap Cupboard.Glass () getGlass;
+  
+  public Server (cap void () tap, cap Cupboard.Glass () getGlass) {
+    this.tap = tap;
+    this.getGlass = getGlass;
+  }
+  
+  private Cupboard.Glass getBeer() {
+    receive tap();
+    // Get a glass from the cupboard
+    send tap();
+    
+  }
+  private Cupboard.Cup getCappu() {
+    
+  }
+  private Cupboard.Cup getChoco() {
+    
+  }
+}

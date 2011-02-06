@@ -1,8 +1,16 @@
 import edu.ucdavis.jr.*;
+import java.util.Collection;
 
 public class Table {
   
+  private int space;
+  private cap Collection<Cupboard.Glass> () getGlasses;
+  private cap Collection<Cupboard.Cup> () getCups;
+  
+  
   public Table () {
-    
+    this.space = Constants.TABLE_SPACE;
+    getGlasses = new op Collection<Cupboard.Glass>();
+    getCups = new op Collection<Cupboard.Cup>();
   }
 }

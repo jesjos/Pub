@@ -41,7 +41,7 @@ public class Cupboard {
   
   public process serveGlasses {
     while (true) {
-      inni Glass getGlass() st glasses.isEmpty() {
+      inni Glass getGlass() st !glasses.isEmpty() {
         return glasses.pop();
       }
       [] void replaceGlass(Glass g) {
@@ -51,7 +51,14 @@ public class Cupboard {
   }
   
   process serveCups {
-    
+    while (true) {
+      inni Cup getCup() st !cups.isEmpty() {
+        return cups.pop();
+      }
+      [] void replaceCup(Cup g) {
+        cups.add(g);
+      }
+    }
   }
   
   process serveMilk {

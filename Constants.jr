@@ -5,13 +5,14 @@
 public class Constants {
   
   // Assistant
-  public static final int GC_WASH = 30;
-  public static final int GC_COLLECT = 30;
-  public static final int GC_REPLACE = 30;
+  public static final int WASH = 30;
+  public static final int COLLECT = 30;
+  public static final int REPLACE = 30;
   public static final int REST = 30;
   
   // Customers
   public static final int CUSTOMER_DROPINTIME = 30;
+  public static final int CUSTOMER_DRINKS = 5;
   
   // Tables
   public static final int N_OF_TABLES = 30;
