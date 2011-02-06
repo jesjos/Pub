@@ -35,6 +35,8 @@ public class Landlord {
     }
   }
   
+  
+  /* I think that eventually we will want to return Resource-objects that are passed from the cupboard */
   private process serve {
     cap Resource (Constants.Order) orderChannel;
     
@@ -42,9 +44,9 @@ public class Landlord {
       receive orderQueue(orderChannel);
       inni Resource orderChannel(Constants.Order order) {
         switch (order) {
-          case BEER : System.out.println("BEER"); return new Constants.Beer();
-          case CAPPU : System.out.println("CAPPU"); return new Constants.Cappu();
-          case CHOCO : System.out.println("CHOCO"); return new Constants.Choco();
+          case BEER : System.out.println("BEER"); return new Cupboard.Glass();
+          case CAPPU : System.out.println("CAPPU"); return new Cupboard.Cup();
+          case CHOCO : System.out.println("CHOCO"); return new Cupboard.Cup();
         }
         return ;
       }

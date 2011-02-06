@@ -38,19 +38,19 @@ public class Cupboard {
   }
   
   
-  public class Glass implements Resource {
+  public static class Glass implements Resource {
     
   }
   
-  public class Cup implements Resource {
+  public static class Cup implements Resource {
     
   }
   
-  public class Milk implements Resource {
+  public static class Milk implements Resource {
     
   }
   
-  public class Chocolate implements Resource {
+  public static class Chocolate implements Resource {
     
   }
 }
