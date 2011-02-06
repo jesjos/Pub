@@ -12,7 +12,7 @@ import java.util.Collection;
 public class Pub {
   
   private cap void () closingAlarm;
-  private cap void () orderQueue;
+  private cap void (cap Resource (Constants.Order)) orderQueue;
   private cap void (cap void()) handshakeQueue;
   private cap void () tap;
   private Clock clock;
@@ -20,7 +20,7 @@ public class Pub {
   
   public Pub () {
     closingAlarm = new op void();
-    orderQueue = new op void();
+    orderQueue = new op void (cap Resource (Constants.Order));
     tap = new op void();
     initialize();
   }
@@ -34,8 +34,8 @@ public class Pub {
       tables.add(new Table()); 
     }
     
-    landlord = new Landlord(closingAlarm, orderQueue);
-    new Barmaid(orderQueue);
+    landlord = new Landlord(closingAlarm, orderQueue, tap);
+    new Barmaid(orderQueue, tap);
     new Cupboard();
     new Assistant(tables);
     

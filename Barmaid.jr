@@ -2,10 +2,12 @@ import edu.ucdavis.jr.*;
 
 public class Barmaid {
   
-  private cap void () orderQueue;
+  private cap void (cap Resource (Constants.Order)) orderQueue;
+  private cap void () tap;
   
-  public Barmaid (cap void () orderQueue) {
+  public Barmaid (cap void (cap Resource (Constants.Order)) orderQueue, cap void () tap) {
     this.orderQueue = orderQueue;
+    this.tap = tap;
   }
   
   process serve {

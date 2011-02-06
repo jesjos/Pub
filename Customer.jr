@@ -2,12 +2,12 @@ import edu.ucdavis.jr.*;
 
 public class Customer {
   int favouriteTable;
-  private cap void () orderQueue;
+  private cap void (cap Resource (Constants.Order)) orderQueue;
   private cap void (cap void ()) handShake;
   private cap Resource (Constants.Order) myChannel;
   private cap void () lastCall;
   
-  public Customer(cap void () orderQueue, cap void (cap void ()) handShake) {
+  public Customer(cap void (cap Resource (Constants.Order)) orderQueue, cap void (cap void ()) handShake) {
     this.orderQueue = orderQueue;
     this.handShake = handShake;
     this.lastCall = new op void ();
