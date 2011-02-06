@@ -14,12 +14,14 @@ public class Pub {
   private cap void () closingAlarm;
   private cap void () orderQueue;
   private cap void (cap void()) handshakeQueue;
+  private cap void () tap;
   private Clock clock;
   private Landlord landlord;
   
   public Pub () {
     closingAlarm = new op void();
     orderQueue = new op void();
+    tap = new op void();
     initialize();
   }
   

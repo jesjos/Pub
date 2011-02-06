@@ -1,18 +1,18 @@
 import edu.ucdavis.jr.*;
-import java.util.ArrayList;
+import java.util.ArrayDeque;
 
 public class Cupboard {
   
-  private ArrayList<Glass> glasses;
-  private ArrayList<Cup> cups;
+  private ArrayDeque<Glass> glasses;
+  private ArrayDeque<Cup> cups;
   
-  private op void getGlass(Glass);
-  private op void getCup(Cup);
-  private op void replace(Resource); 
+  private op Glass getGlass();
+  private op Cup getCup();
+  private op void replaceGlass(Glass); 
   
   public Cupboard() {
-    glasses = new ArrayList<Glass>();
-    cups = new ArrayList<Cup>();
+    glasses = new ArrayDeque<Glass>();
+    cups = new ArrayDeque<Cup>();
     
     initialize();
   }
@@ -24,22 +24,30 @@ public class Cupboard {
       cups.add(new Cup());
   }
   
-  public cap void (Glass) refGlass() {
-    cap void (Glass) ref = getGlass;
+  public cap Glass () refGlass() {
+    cap Glass () ref = getGlass;
     return ref;
   }
   
-  public cap void (Cup) refCup() {
-    cap void (Cup) ref = getCup;
+  public cap Cup () refCup() {
+    cap Cup () ref = getCup;
     return ref;
   }
   
-  public cap void (Resource) getReplace() {
-    cap void (Resource) ref = replace;
+  public cap void (Glass) getReplaceGlass() {
+    cap void (Glass) ref = replaceGlass;
     return ref;
   }
   
-  process serveGlasses {
+  public process serveGlasses {
+    while (true) {
+      inni Glass getGlass() st glasses.isEmpty() {
+        return glasses.pop();
+      }
+      [] void replaceGlass(Glass g) {
+        glasses.add(g);
+      }
+    }
   }
   
   process serveCups {
