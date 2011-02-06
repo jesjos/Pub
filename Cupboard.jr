@@ -6,20 +6,52 @@ public class Cupboard {
   private ArrayList<Glass> glasses;
   private ArrayList<Cup> cups;
   
+  private op Glass glasses();
   
-  public class Glass {
+  public Cupboard() {
+    glasses = new ArrayList<Glass>();
+    cups = new ArrayList<Cup>();
+    
+    initialize();
+  }
+  
+  public void initialize() {
+    for (int i = 0; i < Constants.GLASSES; i++)
+      glasses.add(new Glass());
+    for (int i = 0; i < Constants.CUPS; i++)
+      cups.add(new Cup());
+  }
+  
+  process glasses {
+    public inni 
+  }
+  
+  process cups {
     
   }
   
-  public class Cup {
+  process milk {
     
   }
   
-  public class Milk {
+  process chocolate {
     
   }
   
-  public class Chocolate {
+  
+  public class Glass implements Resource {
+    
+  }
+  
+  public class Cup implements Resource {
+    
+  }
+  
+  public class Milk implements Resource {
+    
+  }
+  
+  public class Chocolate implements Resource {
     
   }
 }

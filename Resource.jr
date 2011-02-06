@@ -1,0 +1,8 @@
+
+/**
+ * A dummy interface to collect resources.
+ */
+
+public interface Resource {
+  
+}
