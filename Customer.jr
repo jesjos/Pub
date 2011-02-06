@@ -5,13 +5,17 @@ public class Customer {
   private cap void () orderQueue;
   private cap void (cap void ()) handShake;
   private cap Resource (Constants.Order) myChannel;
+  private cap void () lastCall;
   
   public Customer(cap void () orderQueue, cap void (cap void ()) handShake) {
     this.orderQueue = orderQueue;
     this.handShake = handShake;
+    this.lastCall = new op void ();
     this.myChannel = new op Resource (Constants.Order);
     
     favouriteTable = (int) Math.random()*Constants.N_OF_TABLES;
+    
+    send handShake(lastCall);
   }
   
   process order {

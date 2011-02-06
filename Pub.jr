@@ -43,7 +43,7 @@ public class Pub {
   process addCustomer {
     while (true) {
       new Customer(orderQueue, handshakeQueue);
-      JR.nap(Constants.CUSTOMER_DROPINTIME);
+      JR.nap(Constants.CUSTOMER_DROPINTIME); // <------------ needs to change, has to depend on Clock.jr
       System.out.println("Added a customer");
     }
   }

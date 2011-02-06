@@ -19,15 +19,16 @@ public class Landlord {
     return handshakeQueue;
   }
   
-  process greet {
+  private process greet {
     cap void () customer;
     while (true) {
       receive handshakeQueue(customer);
       customers.add(customer);
+      System.out.println("Received a customer");
     }
   }
   
-  process checkForLastCall {
+  private process lastCall {
     while (true) {
       receive closingAlarm();
       for (cap void() c : customers)
@@ -51,6 +52,19 @@ public class Landlord {
         return ;
       }
     }
+  }
+  
+  // These methods may have to return the resource objects that we get from the cupboard
+  private void serveBeer() {
+    
+  }
+  
+  private void serveCappu() {
+    
+  }
+  
+  private void serveChoco() {
+    
   }
   
 }

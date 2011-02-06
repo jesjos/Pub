@@ -6,7 +6,9 @@ public class Cupboard {
   private ArrayList<Glass> glasses;
   private ArrayList<Cup> cups;
   
-  private op Glass glassChannel();
+  private op void getGlass(Glass);
+  private op void getCup(Cup);
+  private op void replace(Resource); 
   
   public Cupboard() {
     glasses = new ArrayList<Glass>();
@@ -20,6 +22,21 @@ public class Cupboard {
       glasses.add(new Glass());
     for (int i = 0; i < Constants.CUPS; i++)
       cups.add(new Cup());
+  }
+  
+  public cap void (Glass) refGlass() {
+    cap void (Glass) ref = getGlass;
+    return ref;
+  }
+  
+  public cap void (Cup) refCup() {
+    cap void (Cup) ref = getCup;
+    return ref;
+  }
+  
+  public cap void (Resource) getReplace() {
+    cap void (Resource) ref = replace;
+    return ref;
   }
   
   process serveGlasses {
@@ -37,6 +54,7 @@ public class Cupboard {
     
   }
   
+  // Resource classes
   
   public static class Glass implements Resource {
     
