@@ -6,13 +6,12 @@ public class Landlord extends Server {
   private cap void (cap Resource (Constants.Order)) orderQueue;
   private cap void () closingAlarm;
   private cap void (cap void()) handshakeQueue;
-  private cap void () tap;
   private ArrayList<cap void ()> customers; 
   
   public Landlord(cap void () closingAlarm, cap void (cap Resource(Constants.Order)) orderQueue, cap void () tap) {
+    super(tap);
     this.orderQueue = orderQueue;
     this.closingAlarm = closingAlarm;
-    this.tap = tap;
     handshakeQueue = new op void (cap void ());
     customers = new ArrayList<cap void()>();
   }

@@ -9,6 +9,7 @@ public class Cupboard {
   private op Glass getGlass();
   private op Cup getCup();
   private op void replaceGlass(Glass); 
+  private op void replaceCup(Cup);
   
   public Cupboard() {
     glasses = new ArrayDeque<Glass>();

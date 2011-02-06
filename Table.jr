@@ -1,16 +1,39 @@
 import edu.ucdavis.jr.*;
 import java.util.Collection;
+import java.util.ArrayDeque;
 
 public class Table {
   
   private int space;
+  private ArrayDeque<Cupboard.Glass> glasses;
+  private ArrayDeque<Cupboard.Cup> cups;
   private cap Collection<Cupboard.Glass> () getGlasses;
   private cap Collection<Cupboard.Cup> () getCups;
-  
+  private cap void (Cupboard.Glass) putGlass;
+  private cap void (Cupboard.Cup) putCup;
   
   public Table () {
     this.space = Constants.TABLE_SPACE;
     getGlasses = new op Collection<Cupboard.Glass>();
     getCups = new op Collection<Cupboard.Cup>();
+    putGlass = new op void (Cupboard.Glass);
+    putCup = new op void (Cupboard.Cup);
+    glasses = new ArrayDeque<Cupboard.Glass>();
+    cups = new ArrayDeque<Cupboard.Cup>();
   }
+  
+  private process p {
+    while (true) {
+      inni void putGlass (Cupboard.Glass g) st !(space < 2) {
+        space -= 2;
+        glasses.push(g);
+      }
+      [] void putCup (Cupboard.Cup c) st !(space < 1) {
+        space--;
+        cups.push(c);
+      }
+    }
+  } 
+  
+  
 }
