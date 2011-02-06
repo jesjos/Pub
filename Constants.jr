@@ -2,7 +2,7 @@
  * A class containing constants used in the pub app.
  */
 
-class Constants {
+public class Constants {
   
   // Assistant
   public static final int GC_WASH = 30;
@@ -23,6 +23,23 @@ class Constants {
   
   public enum Order {
     BEER, CAPPU, CHOCO;
+  }
+  
+  /*
+  Right now these dummies implement Resource. Perhaps another interface should be created for actual drinks.
+  Do we need to make sure that an object representing the act of ordering and an object representing the result of an
+  order aren't the same? */
+  
+  public static class Beer implements Resource {
+    
+  }
+  
+  public static class Cappu implements Resource {
+    
+  }
+  
+  public static class Choco implements Resource {
+    
   }
   
   

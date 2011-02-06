@@ -6,7 +6,7 @@ public class Cupboard {
   private ArrayList<Glass> glasses;
   private ArrayList<Cup> cups;
   
-  private op Glass glasses();
+  private op Glass glassChannel();
   
   public Cupboard() {
     glasses = new ArrayList<Glass>();
@@ -22,19 +22,18 @@ public class Cupboard {
       cups.add(new Cup());
   }
   
-  process glasses {
-    public inni 
+  process serveGlasses {
   }
   
-  process cups {
+  process serveCups {
     
   }
   
-  process milk {
+  process serveMilk {
     
   }
   
-  process chocolate {
+  process serveChocolate {
     
   }
   

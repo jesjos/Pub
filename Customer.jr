@@ -3,11 +3,13 @@ import edu.ucdavis.jr.*;
 public class Customer {
   int favouriteTable;
   private cap void () orderQueue;
-  private cap void (Constants.Order) myChannel;
+  private cap void (cap void ()) handShake;
+  private cap Resource (Constants.Order) myChannel;
   
-  public Customer(cap void () orderQueue) {
+  public Customer(cap void () orderQueue, cap void (cap void ()) handShake) {
     this.orderQueue = orderQueue;
-    this.myChannel = new op void (Constants.Order);
+    this.handShake = handShake;
+    this.myChannel = new op Resource (Constants.Order);
     
     favouriteTable = (int) Math.random()*Constants.N_OF_TABLES;
   }

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Landlord {
   
-  private cap void () orderQueue;
+  private cap void (cap Resource (Constants.Order)) orderQueue;
   private cap void () closingAlarm;
   private cap void (cap void()) handshakeQueue;
   private ArrayList<cap void ()> customers; 
@@ -19,14 +19,36 @@ public class Landlord {
     return handshakeQueue;
   }
   
-  process checkForLastCall {
-    receive closingAlarm();
-    for (cap void() c : customers)
-      send c();
+  process greet {
+    cap void () customer;
+    while (true) {
+      receive handshakeQueue(customer);
+      customers.add(customer);
+    }
   }
   
-  process serve {
+  process checkForLastCall {
+    while (true) {
+      receive closingAlarm();
+      for (cap void() c : customers)
+        send c();
+    }
+  }
+  
+  private process serve {
+    cap Resource (Constants.Order) orderChannel;
     
+    while (true) {
+      receive orderQueue(orderChannel);
+      inni Resource orderChannel(Constants.Order order) {
+        switch (order) {
+          case BEER : System.out.println("BEER"); return new Constants.Beer();
+          case CAPPU : System.out.println("CAPPU"); return new Constants.Cappu();
+          case CHOCO : System.out.println("CHOCO"); return new Constants.Choco();
+        }
+        return ;
+      }
+    }
   }
   
 }
