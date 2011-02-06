@@ -19,7 +19,27 @@ public class Server {
     this.getGlass = getGlass;
   }
   
+  private process serve {
+    cap Resource (Constants.Order) orderChannel;
+    
+    while (true) {
+      if (this instanceof Barmaid)
+        ; // do something about leaving work
+      receive orderQueue(orderChannel);
+      inni Resource orderChannel(Constants.Order order) {
+        System.out.println("Got an order");
+        switch (order) {
+          case BEER : System.out.println("BEER"); return getBeer();
+          case CAPPU : System.out.println("CAPPU"); return getCappu();
+          case CHOCO : System.out.println("CHOCO"); return getChoco();
+        }
+        return ;
+      }
+    }
+  }
+  
   protected Cupboard.Glass getBeer() {
+    System.out.println("Servicing order");
     Cupboard.Glass glass = getGlass();
     receive tap();
     send tap();

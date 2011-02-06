@@ -1,0 +1,13 @@
+import edu.ucdavis.jr.*;
+
+public class Test2 extends Test {
+  
+  public Test2 () {
+    super();
+  }
+  
+  public static void main(String[] args) {
+    Test2 t = new Test2();
+  }
+  
+}

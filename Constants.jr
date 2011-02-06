@@ -11,8 +11,9 @@ public class Constants {
   public static final int REST = 30;
   
   // Customers
-  public static final int CUSTOMER_DROPINTIME = 30;
+  public static final int CUSTOMER_DROPINTIME = 4000;
   public static final int CUSTOMER_DRINKS = 5;
+  public static final int DRINK_TIME = 120;
   
   // Tables
   public static final int N_OF_TABLES = 30;
@@ -24,6 +25,9 @@ public class Constants {
   
   public enum Order {
     BEER, CAPPU, CHOCO;
+    public static Order getOrder (int i) {
+      return values()[i];
+    }
   }
   
   /*

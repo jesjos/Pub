@@ -11,6 +11,7 @@ public class Table {
   private cap Collection<Cupboard.Cup> () getCups;
   private cap void (Cupboard.Glass) putGlass;
   private cap void (Cupboard.Cup) putCup;
+  private cap void (Resource) put;
   
   public Table () {
     this.space = Constants.TABLE_SPACE;
@@ -18,9 +19,18 @@ public class Table {
     getCups = new op Collection<Cupboard.Cup>();
     putGlass = new op void (Cupboard.Glass);
     putCup = new op void (Cupboard.Cup);
+    put = new op void (Resource);
     glasses = new ArrayDeque<Cupboard.Glass>();
     cups = new ArrayDeque<Cupboard.Cup>();
   }
+  
+  public cap void(Cupboard.Glass) getPutGlass() {
+    return putGlass;
+  }
+
+  public cap void(Cupboard.Cup) getPutCup() {
+    return putCup;
+  }  
   
   private process p {
     while (true) {

@@ -13,7 +13,6 @@ public class Landlord extends Server {
                   cap Cupboard.Glass () getGlass,
                   cap Cupboard.Cup ()   serveCup
                   ) {
-                    
     super(orderQueue, tap, getGlass, serveCup);
     
     this.closingAlarm = closingAlarm;
@@ -40,37 +39,6 @@ public class Landlord extends Server {
       for (cap void() c : customers)
         send c();
     }
-  }
-  
-  
-  /* I think that eventually we will want to return Resource-objects that are passed from the cupboard */
-  private process serve {
-    cap Resource (Constants.Order) orderChannel;
-    
-    while (true) {
-      receive orderQueue(orderChannel);
-      inni Resource orderChannel(Constants.Order order) {
-        switch (order) {
-          case BEER : System.out.println("BEER"); return getBeer();
-          case CAPPU : System.out.println("CAPPU"); return getCappu();
-          case CHOCO : System.out.println("CHOCO"); return getChoco();
-        }
-        return ;
-      }
-    }
-  }
-  
-  // These methods may have to return the resource objects that we get from the cupboard
-  private void serveBeer() {
-    
-  }
-  
-  private void serveCappu() {
-    
-  }
-  
-  private void serveChoco() {
-    
   }
   
 }

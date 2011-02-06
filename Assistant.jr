@@ -3,10 +3,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Assistant {
-  private ArrayList<cap void (Constants.Order)> tables;
+  private ArrayList<Table> tables;
   
-  public Assistant(Collection<cap void (Constants.Order)> tables) {
-    this.tables = new ArrayList<cap void (Constants.Order)>(tables);
+  public Assistant(Collection<Table> tables) {
+    this.tables = new ArrayList<Table>(tables);
   }
   
   process work {

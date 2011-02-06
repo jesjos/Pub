@@ -18,10 +18,13 @@ public class Pub {
   private Clock clock;
   private Landlord landlord;
   
+  ArrayList<Table> tables;
+  
   public Pub () {
     closingAlarm = new op void();
     orderQueue = new op void (cap Resource (Constants.Order));
     tap = new op void();
+    tables = new ArrayList<Table>();
     initialize();
   }
   
@@ -29,7 +32,6 @@ public class Pub {
     
     clock = new Clock(30, new MyTime(18, 0, 0));
     
-    Collection tables = new ArrayList<Table>();
     for (int i = 0; i < Constants.N_OF_TABLES; i++ ) {
       tables.add(new Table()); 
     }
@@ -46,7 +48,7 @@ public class Pub {
   
   process addCustomer {
     while (true) {
-      new Customer(orderQueue, handshakeQueue);
+      new Customer(orderQueue, handshakeQueue, tables.get((int) Math.random()*Constants.N_OF_TABLES));
       JR.nap(Constants.CUSTOMER_DROPINTIME); // <------------ needs to change, has to depend on Clock.jr
       System.out.println("Added a customer");
     }
