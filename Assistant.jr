@@ -48,6 +48,8 @@ public class Assistant {
       cup = t.getCup();
     }
     
+    System.out.println("Assistant: I've got " + glasses.size() + " glasses and " + cups.size() + " cups.");
+    
     // Go wash the glasses
     
     for (ServingArea.Glass g : glasses) {
@@ -61,14 +63,14 @@ public class Assistant {
     }
     
     // Replace into cupboard
-    for (ServingArea.Glass g : glasses) {
-      call sa.replaceGlass(g);
+    for (int j = 0; j < glasses.size(); j++) {
+      call sa.replaceGlass(glasses.poll());
       send clock.setAlarm(alarm, Constants.REPLACE);
       receive alarm();
     }
     
-    for (ServingArea.Cup c : cups) {
-      call sa.replaceCup(c);
+    for (int j = 0; j < cups.size(); j++) {
+      call sa.replaceCup(cups.poll());
       send clock.setAlarm(alarm, Constants.REPLACE);
       receive alarm();
     }
