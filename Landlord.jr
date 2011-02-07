@@ -3,41 +3,41 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Landlord extends Server {
-  
-  private cap void () lastCall;
-  private op void handshakeQueue (cap void());
-  private ArrayList<cap void ()> customers = new ArrayList<cap void()>();; 
-  
-  public Landlord(cap void () lastCall,
-                  cap Resource (Constants.Order) orderQueue, 
-                  cap void ()[] singleResources,
-                  cap ServingArea.Glass () getGlass,
-                  cap ServingArea.Cup ()   serveCup,
-                  cap void ()           closingTime,
-                  Clock clock
-                  ) {
-                    
-    super(orderQueue, singleResources, getGlass, serveCup, closingTime, clock);
-    this.lastCall = lastCall;
-  }
-  
-  public cap void (cap void ()) getHandShakeQueue() {
-    return handshakeQueue;
-  }
-  
-  private process greet {
-    cap void () customer;
-    while (true) {
-      receive handshakeQueue(customer);
-      customers.add(customer);
-      System.out.println("Received a customer");
-    }
-  }
-  
-  private process checkLastCall {
-    receive lastCall();
-    for (cap void() c : customers)
-      send c();
-  }
-  
+
+	private cap void () lastCall;
+	private op void handshakeQueue (cap void());
+	private ArrayList<cap void ()> customers = new ArrayList<cap void()>();; 
+
+	public Landlord(cap void () lastCall,
+			cap Resource (Constants.Order) orderQueue, 
+			cap void ()[] singleResources,
+			cap ServingArea.Glass () getGlass,
+			cap ServingArea.Cup ()   serveCup,
+			cap void ()           closingTime,
+			Clock clock
+	) {
+
+		super(orderQueue, singleResources, getGlass, serveCup, closingTime, clock);
+		this.lastCall = lastCall;
+	}
+
+	public cap void (cap void ()) getHandShakeQueue() {
+		return handshakeQueue;
+	}		
+
+	private process greet {
+		cap void () customer;
+		while (true) {
+			receive handshakeQueue(customer);
+			customers.add(customer);
+			System.out.println("Received a customer");
+		}
+	}
+
+	private process checkLastCall {
+		receive lastCall();
+		for (cap void() c : customers)
+			send c();
+	}
+
 }
