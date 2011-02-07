@@ -1,7 +1,8 @@
 import edu.ucdavis.jr.*;
 import java.util.ArrayList;
 import java.util.Collection;
-//nudå
+//user anmar
+
 public class Assistant {
   private ArrayList<Table> tables;
   
