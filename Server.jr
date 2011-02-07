@@ -61,16 +61,28 @@ public class Server {
     System.out.println("Servicing order");
     ServingArea.Glass glass = getGlass();
     receive tap();
-    System.out.println(Thread.currentThread() + "Is pouring a drink");
+    System.out.println(Thread.currentThread() + "Is pouring a beer");
     // Pour the beer
     send tap();
     return glass;
     
   }
   protected ServingArea.Cup getCappu() {
-    return new ServingArea.Cup();
+	System.out.println("Servicing order");
+	ServingArea.Cup cup = getCup();
+	receive coffee();
+	System.out.println(Thread.currentThread() + "Is pouring a cappucino");
+	// Pour the cappucino
+	send coffe();
+    return new cup;
   }
   protected ServingArea.Cup getChoco() {
-    return new ServingArea.Cup();    
+	System.out.println("Servicing order");
+	ServingArea.Cup cup = getCup();
+	receive choco();
+	System.out.println(Thread.currentThread() + "Is pouring a choco");
+	// Pour the choco
+	send coffe();
+	return new cup;    
   }
 }
