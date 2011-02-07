@@ -37,7 +37,7 @@ public class Customer {
     
     Constants.Order randomOrder;
     while (!closed && (numberOfDrinks < Constants.MAX_DRINKS)) {
-      randomOrder = Constants.Order.BEER;
+      randomOrder = Constants.Order.values()[(int) (Math.random() * 3)];
       drink = orderQueue(randomOrder);
       numberOfDrinks++;
       System.out.println("I received a drink!");
@@ -56,6 +56,7 @@ public class Customer {
       System.out.println("I put down my drink");
       // Repeat
     }
+    System.out.println("Customer going home.");
   }
   
   process checkLastCall {
