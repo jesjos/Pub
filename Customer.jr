@@ -1,7 +1,7 @@
 import edu.ucdavis.jr.*;
 
 public class Customer {
-  private cap void (cap Resource (Constants.Order)) orderQueue;
+  private cap Resource (Constants.Order) orderQueue;
   private cap void (cap void ()) handShake;
   private cap Resource (Constants.Order) order;
   private cap void () lastCall;
@@ -12,7 +12,7 @@ public class Customer {
   
   private boolean closed;
   
-  public Customer(cap void (cap Resource (Constants.Order)) orderQueue, cap void (cap void ()) handShake, Table favouriteTable) {
+  public Customer(cap Resource (Constants.Order) orderQueue, cap void (cap void ()) handShake, Table favouriteTable) {
     this.orderQueue = orderQueue;
     this.handShake = handShake;
     
@@ -30,10 +30,10 @@ public class Customer {
   process mainLoop {
     Constants.Order randomOrder;
     while (!closed) {
-      send orderQueue(order);
+      //send orderQueue(order);
       randomOrder = Constants.Order.BEER;
       //randomOrder = Constants.Order.getOrder((int) Math.random()*3);
-      drink = order(randomOrder);
+      drink = orderQueue(randomOrder);
       System.out.println("I received a drink!");
       // Go to table
       // Drink

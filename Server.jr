@@ -3,30 +3,35 @@ import edu.ucdavis.jr.*;
 public class Server {
   
   protected cap void () tap;
-  protected cap void (cap Resource (Constants.Order)) orderQueue;
+  protected cap Resource (Constants.Order) orderQueue;
   protected cap Cupboard.Glass () getGlass;
   protected cap Cupboard.Cup () serveCup;
+  protected cap void () closingTime;
+  protected boolean closed;
   
   public Server (
-    cap void (cap Resource (Constants.Order)) orderQueue, 
+    cap Resource (Constants.Order) orderQueue, 
     cap void ()           tap,
     cap Cupboard.Glass () getGlass,
-    cap Cupboard.Cup ()   serveCup
+    cap Cupboard.Cup ()   serveCup,
+    cap void ()           closingTime
     ) {
     this.tap = tap;
     this.orderQueue = orderQueue;
     this.serveCup   = serveCup;
     this.getGlass = getGlass;
+    this.closingTime = closingTime;
+    closed = false;
   }
   
   private process serve {
     cap Resource (Constants.Order) orderChannel;
     
     while (true) {
-      if (this instanceof Barmaid)
-        ; // do something about leaving work
-      receive orderQueue(orderChannel);
-      inni Resource orderChannel(Constants.Order order) {
+      if (this instanceof Barmaid && closed)
+        break;
+      //receive orderQueue(orderChannel);
+      inni Resource orderQueue(Constants.Order order) {
         System.out.println("Got an order");
         switch (order) {
           case BEER : System.out.println("BEER"); return getBeer();
@@ -36,6 +41,11 @@ public class Server {
         return ;
       }
     }
+  }
+  
+  private process checkForClosingTime {
+    receive closingTime();
+    closed = true;
   }
   
   protected Cupboard.Glass getBeer() {

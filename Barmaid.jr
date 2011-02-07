@@ -2,12 +2,13 @@ import edu.ucdavis.jr.*;
 
 public class Barmaid extends Server {
   
-  public Barmaid (cap void (cap Resource (Constants.Order)) orderQueue, 
+  public Barmaid (cap Resource (Constants.Order) orderQueue, 
                   cap void ()           tap,
                   cap Cupboard.Glass () getGlass,
-                  cap Cupboard.Cup ()   serveCup
+                  cap Cupboard.Cup ()   serveCup,
+                  cap void ()           closingTime
                   ) {
-    super(orderQueue, tap, getGlass, serveCup);
+    super(orderQueue, tap, getGlass, serveCup, closingTime);
   }
   
   process serve {

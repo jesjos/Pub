@@ -11,20 +11,16 @@ import java.util.Collection;
 
 public class Pub {
   
-  private cap void () closingAlarm;
-  private cap void (cap Resource (Constants.Order)) orderQueue;
+  private op void closingAlarm ();
+  private op Resource orderQueue (Constants.Order);
   private cap void (cap void()) handshakeQueue;
-  private cap void () tap;
+  private op void tap ();
   private Clock clock;
   private Landlord landlord;
   
-  ArrayList<Table> tables;
+  ArrayList<Table> tables = new ArrayList<Table>();
   
   public Pub () {
-    closingAlarm = new op void();
-    orderQueue = new op void (cap Resource (Constants.Order));
-    tap = new op void();
-    tables = new ArrayList<Table>();
     initialize();
   }
   
@@ -47,8 +43,10 @@ public class Pub {
   }
   
   process addCustomer {
+    int randomTable;
     while (true) {
-      new Customer(orderQueue, handshakeQueue, tables.get((int) Math.random()*Constants.N_OF_TABLES));
+      randomTable = (int) (Math.random()*Constants.N_OF_TABLES);
+      new Customer(orderQueue, handshakeQueue, tables.get(randomTable));
       JR.nap(Constants.CUSTOMER_DROPINTIME); // <------------ needs to change, has to depend on Clock.jr
       System.out.println("Added a customer");
     }
