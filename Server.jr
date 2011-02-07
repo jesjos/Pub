@@ -1,7 +1,6 @@
 import edu.ucdavis.jr.*;
 
 public class Server {
-
 	protected cap Resource (Constants.Order) orderQueue;
 	protected cap ServingArea.Glass () getGlass;
 	protected cap ServingArea.Cup () getCup;
