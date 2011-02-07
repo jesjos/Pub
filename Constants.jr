@@ -12,7 +12,7 @@ public class Constants {
   
   // Customers
   public static final MyTime CUSTOMER_DROPINTIME = new MyTime(0,2,0);
-  public static final int CUSTOMER_DRINKS = 5;
+  public static final int MAX_DRINKS = 5;
   public static final MyTime DRINK_TIME = new MyTime(0,10,0);
   
   // Tables

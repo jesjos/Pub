@@ -11,6 +11,8 @@ public class Customer {
   private Resource drink;
   private Clock clock;
   
+  private int numberOfDrinks;
+  
   private boolean closed;
   
   public Customer(cap Resource (Constants.Order) orderQueue, cap void (cap void ()) handShake, Table favouriteTable, Clock clock) {
@@ -24,6 +26,7 @@ public class Customer {
     lastCall = new op void ();
     order = new op Resource (Constants.Order);
     closed = false;
+    numberOfDrinks = 0;
     
     send handShake(lastCall);
   }
@@ -33,9 +36,10 @@ public class Customer {
     op void alarm ();
     
     Constants.Order randomOrder;
-    while (!closed) {
+    while (!closed && (numberOfDrinks < Constants.MAX_DRINKS)) {
       randomOrder = Constants.Order.BEER;
       drink = orderQueue(randomOrder);
+      numberOfDrinks++;
       System.out.println("I received a drink!");
       // Go to table
       // Drink
