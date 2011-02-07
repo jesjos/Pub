@@ -11,6 +11,7 @@ public class Server {
 	protected cap void () tap;
 	protected op void alarm ();
 	protected boolean closed;
+	protected boolean customersLeft;
 	protected Clock clock;
 
 	public Server (
@@ -27,6 +28,7 @@ public class Server {
 		this.closingTime = closingTime;
 		this.clock = clock;
 		closed = false;
+		customersLeft = true;
 
 		milk = singleResources[Constants.MILK];
 		coffee = singleResources[Constants.COFFEE];
@@ -38,7 +40,7 @@ public class Server {
 	private process serve {
 		cap Resource (Constants.Order) orderChannel;
 
-		while (true) {
+		while (customersLeft) {
 			if (this instanceof Barmaid && closed)
 				break;
 			//receive orderQueue(orderChannel);

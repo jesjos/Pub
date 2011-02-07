@@ -24,20 +24,22 @@ public class Pub {
   
   ArrayList<Table> tables = new ArrayList<Table>();
   
+  private boolean closed = false;
+  
   public Pub () {
     initialize();
   }
   
   public void initialize() {
     
-    clock = new Clock(30, new MyTime(18, 0, 0));
+    clock = new Clock(10, new MyTime(0, 59, 0));
     
     for (int i = 0; i < Constants.N_OF_TABLES; i++ ) {
       tables.add(new Table()); 
     }
     
     ServingArea sa = new ServingArea(clock);
-    new Assistant(tables, clock, sa);
+    new Assistant(tables, clock, sa, close);
     new Barmaid(orderQueue, sa.getSingleResources(), sa.refGlass(), sa.refCup(), close, clock);
     landlord = new Landlord(lastCall, orderQueue, sa.getSingleResources(), sa.refGlass(), sa.refCup(), close, clock);
     
@@ -48,23 +50,31 @@ public class Pub {
   process addCustomer {
     op void alarm();
     int randomTable;
-    while (true) {
+    while (!closed) {
       randomTable = (int) (Math.random()*Constants.N_OF_TABLES);
       send print("Generated customer with favourite table " + randomTable);
       new Customer(orderQueue, handshakeQueue, tables.get(randomTable), clock);
+      
       send clock.setAlarm(alarm, Constants.CUSTOMER_DROPINTIME);
       receive alarm();
+      
       send print("Added a customer");
     }
   }
   
-  process lastCallAndClosingTime {
-
+  process closingTime {
+    op void closingTime();
+    clock.setAlarmEndTime(closingTime);
+    receive closingTime();
+    closed = true;
+    
+    for (int i = 0; i< Constants.NUMBER_OF_STAFF; i++)
+      send close();
   }
   
   process printer {
     String s;
-    while (true) {
+    while (!closed) {
       receive print(s);
       System.out.println(s);
     }
