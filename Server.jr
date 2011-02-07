@@ -2,26 +2,34 @@ import edu.ucdavis.jr.*;
 
 public class Server {
   
-  protected cap void () tap;
   protected cap Resource (Constants.Order) orderQueue;
   protected cap ServingArea.Glass () getGlass;
-  protected cap ServingArea.Cup () serveCup;
+  protected cap ServingArea.Cup () getCup;
   protected cap void () closingTime;
+  protected cap void () milk;
+  protected cap void () coffee;
+  protected cap void () choco;
+  protected cap void () tap;
   protected boolean closed;
   
   public Server (
     cap Resource (Constants.Order) orderQueue, 
-    cap void ()           tap,
+    cap void ()[] singleResources,
     cap ServingArea.Glass () getGlass,
-    cap ServingArea.Cup ()   serveCup,
+    cap ServingArea.Cup ()   getCup,
     cap void ()           closingTime
     ) {
-    this.tap = tap;
     this.orderQueue = orderQueue;
-    this.serveCup   = serveCup;
+    this.getCup   = getCup;
     this.getGlass = getGlass;
     this.closingTime = closingTime;
     closed = false;
+    
+    milk = singleResources[Constants.MILK];
+    coffee = singleResources[Constants.COFFEE];
+    choco = singleResources[Constants.CHOCO];
+    tap = singleResources[Constants.TAP];
+    
   }
   
   private process serve {
@@ -52,6 +60,8 @@ public class Server {
     System.out.println("Servicing order");
     ServingArea.Glass glass = getGlass();
     receive tap();
+    System.out.println(Thread.currentThread() + "Is pouring a drink");
+    // Pour the beer
     send tap();
     return glass;
     

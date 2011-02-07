@@ -17,12 +17,6 @@ public class Pub {
   private op Resource orderQueue (Constants.Order);
   private cap void (cap void()) handshakeQueue;
   
-  // Some resources that only need simple mutex
-  private op void tap ();
-  private op void milk ();
-  private op void coffee ();
-  private op void choco ();
-  
   private Clock clock;
   private Landlord landlord;
   
@@ -42,15 +36,11 @@ public class Pub {
     
     ServingArea c = new ServingArea();
     new Assistant(tables);
-    new Barmaid(orderQueue, tap, c.refGlass(), c.refCup());
-    landlord = new Landlord(lastCall, orderQueue, tap, c.refGlass(), c.refCup());
+    new Barmaid(orderQueue, c.getSingleResources(), c.refGlass(), c.refCup(), close);
+    landlord = new Landlord(lastCall, orderQueue, c.getSingleResources(), c.refGlass(), c.refCup(), close);
     
     handshakeQueue = landlord.getHandShakeQueue();
-    
-    send tap();
-    send milk();
-    send coffee();
-    send choco();
+
   }
   
   process addCustomer {
@@ -64,7 +54,7 @@ public class Pub {
   }
   
   process lastCallAndClosingTime {
-    receive 
+
   }
   
   public static void main(String[] args) {

@@ -1,5 +1,6 @@
 import edu.ucdavis.jr.*;
 import java.util.ArrayDeque;
+import java.util.HashMap;
 
 public class ServingArea {
   
@@ -10,9 +11,11 @@ public class ServingArea {
   private op Cup getCup();
   private op void replaceGlass(Glass); 
   private op void replaceCup(Cup);
-  private boolean coffeeTaken;
-  private boolean milkTaken;
-  private boolean chocoTaken;
+  private op void milk();
+  private op void coffee();
+  private op void choco();
+  private op void tap();
+  private cap void ()[] singleResources = new cap void ()[4];
   
   public ServingArea() {
     glasses = new ArrayDeque<Glass>();
@@ -23,13 +26,20 @@ public class ServingArea {
     for (int i = 0; i < Constants.CUPS; i++)
       cups.add(new Cup());
     
-    coffeeTaken = false;
-    milkTaken = false;
-    chocoTaken = false;
+    singleResources[Constants.MILK] = milk;
+    singleResources[Constants.COFFEE] = coffee;
+    singleResources[Constants.CHOCO] = choco;
+    singleResources[Constants.TAP] = tap;
+    
+    // Initialize single resources for use
+    send milk();
+    send coffee();
+    send choco();
+    send tap();
   }
   
-  public void initialize() {
-    
+  public cap void ()[] getSingleResources() {
+    return singleResources;
   }
   
   public cap Glass () refGlass() {
@@ -67,8 +77,6 @@ public class ServingArea {
         cups.add(g);
       }
     }
-  }
-    
   }
   
   // Resource classes

@@ -1,5 +1,6 @@
 import edu.ucdavis.jr.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Landlord extends Server {
   
@@ -9,13 +10,13 @@ public class Landlord extends Server {
   
   public Landlord(cap void () lastCall,
                   cap Resource (Constants.Order) orderQueue, 
-                  cap void ()           tap,
+                  cap void ()[] singleResources,
                   cap ServingArea.Glass () getGlass,
                   cap ServingArea.Cup ()   serveCup,
                   cap void ()           closingTime
                   ) {
                     
-    super(orderQueue, tap, getGlass, serveCup, closingTime);
+    super(orderQueue, singleResources, getGlass, serveCup, closingTime);
     this.lastCall = lastCall;
   }
   
@@ -32,7 +33,7 @@ public class Landlord extends Server {
     }
   }
   
-  private process lastCall {
+  private process checkLastCall {
     receive lastCall();
     for (cap void() c : customers)
       send c();

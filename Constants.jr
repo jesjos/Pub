@@ -23,6 +23,12 @@ public class Constants {
   public static final int GLASSES = 30;
   public static final int CUPS = 30;
   
+  // Resource id:s
+  public static final int MILK = 0;
+  public static final int COFFEE = 1;
+  public static final int TAP = 2;
+  public static final int CHOCO = 3;
+  
   public enum Order {
     BEER, CAPPU, CHOCO;
     public static Order getOrder (int i) {
