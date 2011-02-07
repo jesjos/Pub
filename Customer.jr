@@ -5,8 +5,8 @@ public class Customer {
   private cap void (cap void ()) handShake;
   private cap Resource (Constants.Order) order;
   private cap void () lastCall;
-  private cap void (Cupboard.Glass) putGlass;
-  private cap void (Cupboard.Cup) putCup;
+  private cap void (ServingArea.Glass) putGlass;
+  private cap void (ServingArea.Cup) putCup;
   
   private Resource drink;
   
@@ -40,10 +40,10 @@ public class Customer {
       JR.nap(Constants.DRINK_TIME);
       // Set drink to table IF IT ISN'T ALREADY GONE
       if (this.drink != null) {
-        if (drink instanceof Cupboard.Cup) {
-          call putCup((Cupboard.Cup) drink);
+        if (drink instanceof ServingArea.Cup) {
+          call putCup((ServingArea.Cup) drink);
         } else {
-          call putGlass((Cupboard.Glass) drink);
+          call putGlass((ServingArea.Glass) drink);
         }
       }
       System.out.println("I put down my drink");

@@ -4,16 +4,16 @@ public class Server {
   
   protected cap void () tap;
   protected cap Resource (Constants.Order) orderQueue;
-  protected cap Cupboard.Glass () getGlass;
-  protected cap Cupboard.Cup () serveCup;
+  protected cap ServingArea.Glass () getGlass;
+  protected cap ServingArea.Cup () serveCup;
   protected cap void () closingTime;
   protected boolean closed;
   
   public Server (
     cap Resource (Constants.Order) orderQueue, 
     cap void ()           tap,
-    cap Cupboard.Glass () getGlass,
-    cap Cupboard.Cup ()   serveCup,
+    cap ServingArea.Glass () getGlass,
+    cap ServingArea.Cup ()   serveCup,
     cap void ()           closingTime
     ) {
     this.tap = tap;
@@ -48,18 +48,18 @@ public class Server {
     closed = true;
   }
   
-  protected Cupboard.Glass getBeer() {
+  protected ServingArea.Glass getBeer() {
     System.out.println("Servicing order");
-    Cupboard.Glass glass = getGlass();
+    ServingArea.Glass glass = getGlass();
     receive tap();
     send tap();
     return glass;
     
   }
-  protected Cupboard.Cup getCappu() {
-    return new Cupboard.Cup();
+  protected ServingArea.Cup getCappu() {
+    return new ServingArea.Cup();
   }
-  protected Cupboard.Cup getChoco() {
-    return new Cupboard.Cup();    
+  protected ServingArea.Cup getChoco() {
+    return new ServingArea.Cup();    
   }
 }

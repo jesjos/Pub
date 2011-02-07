@@ -5,50 +5,50 @@ import java.util.ArrayDeque;
 public class Table {
   
   private int space;
-  private ArrayDeque<Cupboard.Glass> glasses;
-  private ArrayDeque<Cupboard.Cup> cups;
-  private op Cupboard.Glass getGlass ();
-  private op Cupboard.Cup getCup();
-  private op void putGlass (Cupboard.Glass);
-  private op void putCup (Cupboard.Cup);
+  private ArrayDeque<ServingArea.Glass> glasses;
+  private ArrayDeque<ServingArea.Cup> cups;
+  private op ServingArea.Glass getGlass ();
+  private op ServingArea.Cup getCup();
+  private op void putGlass (ServingArea.Glass);
+  private op void putCup (ServingArea.Cup);
   private op void put (Resource);
   
   public Table () {
     this.space = Constants.TABLE_SPACE;
-    glasses = new ArrayDeque<Cupboard.Glass>();
-    cups = new ArrayDeque<Cupboard.Cup>();
+    glasses = new ArrayDeque<ServingArea.Glass>();
+    cups = new ArrayDeque<ServingArea.Cup>();
   }
   
-  public cap void(Cupboard.Glass) getPutGlass() {
+  public cap void(ServingArea.Glass) getPutGlass() {
     return putGlass;
   }
 
-  public cap void(Cupboard.Cup) getPutCup() {
+  public cap void(ServingArea.Cup) getPutCup() {
     return putCup;
   }
   
-  public cap Cupboard.Cup() getGetCup() {
+  public cap ServingArea.Cup() getGetCup() {
     return getCup;
   }
   
-  public cap Cupboard.Glass() getGetGlass() {
+  public cap ServingArea.Glass() getGetGlass() {
     return getGlass;
   }
   
   private process p {
     while (true) {
-      inni void putGlass (Cupboard.Glass g) st !(space < 2) {
+      inni void putGlass (ServingArea.Glass g) st !(space < 2) {
         space -= 2;
         glasses.push(g);
       }
-      [] void putCup (Cupboard.Cup c) st !(space < 1) {
+      [] void putCup (ServingArea.Cup c) st !(space < 1) {
         space--;
         cups.push(c);
       }
-      [] Cupboard.Glass getGlass () {
+      [] ServingArea.Glass getGlass () {
         return glasses.poll();
       }
-      [] Cupboard.Cup getCup () {
+      [] ServingArea.Cup getCup () {
         return cups.poll();
       }
     }

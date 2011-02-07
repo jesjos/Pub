@@ -4,8 +4,8 @@ public class Barmaid extends Server {
   
   public Barmaid (cap Resource (Constants.Order) orderQueue, 
                   cap void ()           tap,
-                  cap Cupboard.Glass () getGlass,
-                  cap Cupboard.Cup ()   serveCup,
+                  cap ServingArea.Glass () getGlass,
+                  cap ServingArea.Cup ()   serveCup,
                   cap void ()           closingTime
                   ) {
     super(orderQueue, tap, getGlass, serveCup, closingTime);

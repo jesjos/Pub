@@ -3,20 +3,20 @@ import java.util.ArrayList;
 
 public class Landlord extends Server {
   
-  private cap void () closingAlarm;
+  private cap void () lastCall;
   private op void handshakeQueue (cap void());
   private ArrayList<cap void ()> customers = new ArrayList<cap void()>();; 
   
-  public Landlord(cap void () closingAlarm,
+  public Landlord(cap void () lastCall,
                   cap Resource (Constants.Order) orderQueue, 
                   cap void ()           tap,
-                  cap Cupboard.Glass () getGlass,
-                  cap Cupboard.Cup ()   serveCup,
+                  cap ServingArea.Glass () getGlass,
+                  cap ServingArea.Cup ()   serveCup,
                   cap void ()           closingTime
                   ) {
                     
     super(orderQueue, tap, getGlass, serveCup, closingTime);
-    this.closingAlarm = closingAlarm;
+    this.lastCall = lastCall;
   }
   
   public cap void (cap void ()) getHandShakeQueue() {
@@ -33,11 +33,9 @@ public class Landlord extends Server {
   }
   
   private process lastCall {
-    while (true) {
-      receive closingAlarm();
-      for (cap void() c : customers)
-        send c();
-    }
+    receive lastCall();
+    for (cap void() c : customers)
+      send c();
   }
   
 }

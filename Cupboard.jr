@@ -1,7 +1,7 @@
 import edu.ucdavis.jr.*;
 import java.util.ArrayDeque;
 
-public class Cupboard {
+public class ServingArea {
   
   private ArrayDeque<Glass> glasses;
   private ArrayDeque<Cup> cups;
@@ -10,19 +10,26 @@ public class Cupboard {
   private op Cup getCup();
   private op void replaceGlass(Glass); 
   private op void replaceCup(Cup);
+  private boolean coffeeTaken;
+  private boolean milkTaken;
+  private boolean chocoTaken;
   
-  public Cupboard() {
+  public ServingArea() {
     glasses = new ArrayDeque<Glass>();
     cups = new ArrayDeque<Cup>();
     
-    initialize();
-  }
-  
-  public void initialize() {
     for (int i = 0; i < Constants.GLASSES; i++)
       glasses.add(new Glass());
     for (int i = 0; i < Constants.CUPS; i++)
       cups.add(new Cup());
+    
+    coffeeTaken = false;
+    milkTaken = false;
+    chocoTaken = false;
+  }
+  
+  public void initialize() {
+    
   }
   
   public cap Glass () refGlass() {
@@ -61,12 +68,6 @@ public class Cupboard {
       }
     }
   }
-  
-  process serveMilk {
-    
-  }
-  
-  process serveChocolate {
     
   }
   
