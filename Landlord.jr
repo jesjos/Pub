@@ -36,8 +36,8 @@ public class Landlord extends Server {
 
 	private process checkLastCall {
 		receive lastCall();
-		for (cap void() c : customers)
-			send c();
+		//for (cap void() c : customers)
+		//	send c();
 	}
 
 }
