@@ -68,21 +68,21 @@ public class Server {
     
   }
   protected ServingArea.Cup getCappu() {
-	System.out.println("Servicing order");
-	ServingArea.Cup cup = getCup();
-	receive coffee();
-	System.out.println(Thread.currentThread() + "Is pouring a cappucino");
-	// Pour the cappucino
-	send coffee();
+  	System.out.println("Servicing order");
+  	ServingArea.Cup cup = getCup();
+  	receive coffee();
+  	System.out.println(Thread.currentThread() + "Is pouring a cappucino");
+  	// Pour the cappucino
+  	send coffee();
     return cup;
   }
   protected ServingArea.Cup getChoco() {
-	System.out.println("Servicing order");
-	ServingArea.Cup cup = getCup();
-	receive choco();
-	System.out.println(Thread.currentThread() + "Is pouring a choco");
-	// Pour the choco
-	send choco();
-	return cup;    
+  	System.out.println("Servicing order");
+  	ServingArea.Cup cup = getCup();
+  	receive choco();
+  	System.out.println(Thread.currentThread() + "Is pouring a choco");
+  	// Pour the choco
+  	send choco();
+  	return cup;    
   }
 }
