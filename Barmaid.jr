@@ -2,14 +2,15 @@ import edu.ucdavis.jr.*;
 import java.util.HashMap;
 
 public class Barmaid extends Server {
-  
+ 
   public Barmaid (cap Resource (Constants.Order) orderQueue, 
                   cap void ()[] singleResources,
                   cap ServingArea.Glass () getGlass,
                   cap ServingArea.Cup ()   serveCup,
-                  cap void ()           closingTime
+                  cap void ()           closingTime,
+                  Clock clock
                   ) {
-    super(orderQueue, singleResources, getGlass, serveCup, closingTime);
+    super(orderQueue, singleResources, getGlass, serveCup, closingTime, clock);
   }
   
 }

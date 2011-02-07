@@ -11,6 +11,7 @@ public class Server {
   protected cap void () choco;
   protected cap void () tap;
   protected boolean closed;
+  protected Clock clock;
   
   public Server (
     cap Resource (Constants.Order) orderQueue, 
