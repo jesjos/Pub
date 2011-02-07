@@ -18,7 +18,7 @@ public class Server {
 			cap void ()[] singleResources,
 			cap ServingArea.Glass () getGlass,
 			cap ServingArea.Cup ()   getCup,
-			cap void ()           closingTime
+			cap void ()           closingTime,
 			Clock clock
 	) {
 		this.orderQueue = orderQueue;
@@ -63,7 +63,7 @@ public class Server {
 		System.out.println("Servicing order");
 		ServingArea.Glass glass = getGlass();
 		receive tap();
-		clock.setAlarm(alarm , Constants.pourBeer);
+		clock.setAlarm(alarm , Constants.POURBEER);
 		receive alarm();
 		System.out.println(Thread.currentThread() + "Is pouring a beer");
 		// Pour the beer
