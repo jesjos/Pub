@@ -7,10 +7,11 @@ public class ServingArea {
   private ArrayDeque<Glass> glasses;
   private ArrayDeque<Cup> cups;
   
+  public op void replaceGlass(Glass); 
+  public op void replaceCup(Cup);
+  
   private op Glass getGlass();
   private op Cup getCup();
-  private op void replaceGlass(Glass); 
-  private op void replaceCup(Cup);
   private op void milk();
   private op void coffee();
   private op void choco();
@@ -63,6 +64,7 @@ public class ServingArea {
         return glasses.pop();
       }
       [] void replaceGlass(Glass g) {
+        System.out.println("Replace a glass, current number: " + glasses.size());
         glasses.add(g);
       }
     }

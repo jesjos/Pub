@@ -1,27 +1,78 @@
 import edu.ucdavis.jr.*;
 import java.util.ArrayList;
+import java.util.ArrayDeque;
 import java.util.Collection;
-//user anmar3
 
 public class Assistant {
   private ArrayList<Table> tables;
+  private ArrayDeque<ServingArea.Glass> glasses = new ArrayDeque<ServingArea.Glass>();
+  private ArrayDeque<ServingArea.Cup> cups = new ArrayDeque<ServingArea.Cup>();
   
-  public Assistant(Collection<Table> tables) {
+  private Clock clock;
+  private ServingArea sa;
+  
+  op void alarm () ;
+  
+  public Assistant(Collection<Table> tables, Clock clock, ServingArea sa) {
     this.tables = new ArrayList<Table>(tables);
+    this.clock = clock;
+    this.sa = sa;
   }
   
   process work {
-    int nTables = tables.size();
+    int nTables = Constants.N_OF_TABLES;
     int i = 0;
     while (!isClosingTime()) {
       cleanTable(i);
-      i++;
-      JR.nap(Constants.REST);
+      i = (i + 1) % Constants.N_OF_TABLES;
+      send clock.setAlarm(alarm, Constants.REST);
+      receive alarm();
     }
   }
   
-  public void cleanTable(int t) {
-    // This needs to be implemented
+  public void cleanTable(int i) {
+    System.out.println("Cleaning table number " + i);
+    Table t = tables.get(i);
+    
+    ServingArea.Glass glass;
+    glass = t.getGlass();
+    while (glass != null) {
+      glasses.push(glass);
+      glass = t.getGlass();
+    }
+    
+    ServingArea.Cup cup;
+    cup = t.getCup();
+    while (cup != null) {
+      cups.push(cup);
+      cup = t.getCup();
+    }
+    
+    // Go wash the glasses
+    
+    for (ServingArea.Glass g : glasses) {
+      send clock.setAlarm(alarm, Constants.WASH);
+      receive alarm();
+    }
+    
+    for (ServingArea.Cup c : cups) {
+      send clock.setAlarm(alarm, Constants.WASH);
+      receive alarm();
+    }
+    
+    // Replace into cupboard
+    for (ServingArea.Glass g : glasses) {
+      call sa.replaceGlass(g);
+      send clock.setAlarm(alarm, Constants.REPLACE);
+      receive alarm();
+    }
+    
+    for (ServingArea.Cup c : cups) {
+      call sa.replaceCup(c);
+      send clock.setAlarm(alarm, Constants.REPLACE);
+      receive alarm();
+    }
+    
   }
   
   public boolean isClosingTime() {

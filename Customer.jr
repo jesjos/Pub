@@ -9,12 +9,14 @@ public class Customer {
   private cap void (ServingArea.Cup) putCup;
   
   private Resource drink;
+  private Clock clock;
   
   private boolean closed;
   
-  public Customer(cap Resource (Constants.Order) orderQueue, cap void (cap void ()) handShake, Table favouriteTable) {
+  public Customer(cap Resource (Constants.Order) orderQueue, cap void (cap void ()) handShake, Table favouriteTable, Clock clock) {
     this.orderQueue = orderQueue;
     this.handShake = handShake;
+    this.clock = clock;
     
     putCup = favouriteTable.getPutCup();
     putGlass = favouriteTable.getPutGlass();
@@ -28,16 +30,17 @@ public class Customer {
   
   /* Perhaps last order situations can be solved by having a boolean that checks whether the bar has closed. */
   process mainLoop {
+    op void alarm ();
+    
     Constants.Order randomOrder;
     while (!closed) {
-      //send orderQueue(order);
       randomOrder = Constants.Order.BEER;
-      //randomOrder = Constants.Order.getOrder((int) Math.random()*3);
       drink = orderQueue(randomOrder);
       System.out.println("I received a drink!");
       // Go to table
       // Drink
-      JR.nap(Constants.DRINK_TIME);
+      send clock.setAlarm(alarm, Constants.DRINK_TIME);
+      receive alarm();
       // Set drink to table IF IT ISN'T ALREADY GONE
       if (this.drink != null) {
         if (drink instanceof ServingArea.Cup) {

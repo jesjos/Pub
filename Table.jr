@@ -4,11 +4,12 @@ import java.util.ArrayDeque;
 
 public class Table {
   
+  public op ServingArea.Glass getGlass ();
+  public op ServingArea.Cup getCup();
+  
   private int space;
   private ArrayDeque<ServingArea.Glass> glasses;
   private ArrayDeque<ServingArea.Cup> cups;
-  private op ServingArea.Glass getGlass ();
-  private op ServingArea.Cup getCup();
   private op void putGlass (ServingArea.Glass);
   private op void putCup (ServingArea.Cup);
   private op void put (Resource);

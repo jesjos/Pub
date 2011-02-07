@@ -5,15 +5,15 @@
 public class Constants {
   
   // Assistant
-  public static final int WASH = 30;
-  public static final int COLLECT = 30;
-  public static final int REPLACE = 30;
-  public static final int REST = 30;
+  public static final MyTime WASH = new MyTime(0,0,10);
+  public static final MyTime COLLECT = new MyTime(0,0,3);
+  public static final MyTime REPLACE = new MyTime(0,0,4);
+  public static final MyTime REST = new MyTime(0,2,0);
   
   // Customers
-  public static final int CUSTOMER_DROPINTIME = 4000;
+  public static final MyTime CUSTOMER_DROPINTIME = new MyTime(0,2,0);
   public static final int CUSTOMER_DRINKS = 5;
-  public static final int DRINK_TIME = 120;
+  public static final MyTime DRINK_TIME = new MyTime(0,10,0);
   
   // Tables
   public static final int N_OF_TABLES = 30;

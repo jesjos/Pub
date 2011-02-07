@@ -17,6 +17,8 @@ public class Pub {
   private op Resource orderQueue (Constants.Order);
   private cap void (cap void()) handshakeQueue;
   
+  public op void print(String);
+  
   private Clock clock;
   private Landlord landlord;
   
@@ -34,27 +36,38 @@ public class Pub {
       tables.add(new Table()); 
     }
     
-    ServingArea c = new ServingArea();
-    new Assistant(tables);
-    new Barmaid(orderQueue, c.getSingleResources(), c.refGlass(), c.refCup(), close);
-    landlord = new Landlord(lastCall, orderQueue, c.getSingleResources(), c.refGlass(), c.refCup(), close);
+    ServingArea sa = new ServingArea();
+    new Assistant(tables, clock, sa);
+    new Barmaid(orderQueue, sa.getSingleResources(), sa.refGlass(), sa.refCup(), close);
+    landlord = new Landlord(lastCall, orderQueue, sa.getSingleResources(), sa.refGlass(), sa.refCup(), close);
     
     handshakeQueue = landlord.getHandShakeQueue();
 
   }
   
   process addCustomer {
+    op void alarm();
     int randomTable;
     while (true) {
       randomTable = (int) (Math.random()*Constants.N_OF_TABLES);
-      new Customer(orderQueue, handshakeQueue, tables.get(randomTable));
-      JR.nap(Constants.CUSTOMER_DROPINTIME); // <------------ needs to change, has to depend on Clock.jr
-      System.out.println("Added a customer");
+      send print("Generated customer with favourite table " + randomTable);
+      new Customer(orderQueue, handshakeQueue, tables.get(randomTable), clock);
+      send clock.setAlarm(alarm, Constants.CUSTOMER_DROPINTIME);
+      receive alarm();
+      send print("Added a customer");
     }
   }
   
   process lastCallAndClosingTime {
 
+  }
+  
+  process printer {
+    String s;
+    while (true) {
+      receive print(s);
+      System.out.println(s);
+    }
   }
   
   public static void main(String[] args) {
