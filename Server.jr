@@ -20,11 +20,13 @@ public class Server {
 			cap ServingArea.Glass () getGlass,
 			cap ServingArea.Cup ()   getCup,
 			cap void ()           closingTime
+			Clock clock
 	) {
 		this.orderQueue = orderQueue;
 		this.getCup   = getCup;
 		this.getGlass = getGlass;
 		this.closingTime = closingTime;
+		this.clock = clock;
 		closed = false;
 
 		milk = singleResources[Constants.MILK];
@@ -74,11 +76,12 @@ public class Server {
 		System.out.println("Servicing order");
 		ServingArea.Cup cup = getCup();
 		receive coffee();
-		clock.setAlarm(alarm , Constants.pourBeer);
+		clock.setAlarm(alarm , Constants.GETCOFFEE);
 		receive alarm();
 		receive milk();
-		clock.setAlarm(alarm , Constants.Milk);
+		clock.setAlarm(alarm , Constants.GETMILK);
 		receive alarm();
+		clock.setAlarm(alarm , Constants.MIXCOFFEE);
 		System.out.println(Thread.currentThread() + "Is pouring a cappucino");
 		// Pour the cappucino
 		send milk();
@@ -89,11 +92,12 @@ public class Server {
 		System.out.println("Servicing order");
 		ServingArea.Cup cup = getCup();
 		receive choco();
-		clock.setAlarm(alarm , Constants.pourBeer);
+		clock.setAlarm(alarm , Constants.GETCHOCOPOWDER);
 		receive alarm();
 		receive milk();
-		clock.setAlarm(alarm , Constants.pourMilk);
+		clock.setAlarm(alarm , Constants.GETMILK);
 		receive alarm();
+		clock.setAlarm(alarm , Constants.MIXCHOCO);
 		System.out.println(Thread.currentThread() + "Is pouring a choco");
 		// Pour the choco
 		send milk();
