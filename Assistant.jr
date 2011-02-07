@@ -20,7 +20,7 @@ public class Assistant {
   }
   
   public void cleanTable(int t) {
-    
+    // This needs to be implemented
   }
   
   public boolean isClosingTime() {
