@@ -23,6 +23,10 @@ public class Constants {
   public static final int GLASSES = 30;
   public static final int CUPS = 30;
   
+	// Server
+  public static final MyTime pourBeer = new MyTime(0,1,0);
+  public static final MyTime pourCoffee = new MyTime(0,0,30);
+  public static final MyTime pourChoco = new MyTime(0,1,30);
   // Resource id:s
   public static final int MILK = 0;
   public static final int COFFEE = 1;
