@@ -13,10 +13,11 @@ public class Landlord extends Server {
                   cap void ()[] singleResources,
                   cap ServingArea.Glass () getGlass,
                   cap ServingArea.Cup ()   serveCup,
-                  cap void ()           closingTime
+                  cap void ()           closingTime,
+                  Clock clock
                   ) {
                     
-    super(orderQueue, singleResources, getGlass, serveCup, closingTime);
+    super(orderQueue, singleResources, getGlass, serveCup, closingTime, clock);
     this.lastCall = lastCall;
   }
   

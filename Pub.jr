@@ -36,7 +36,7 @@ public class Pub {
     
     ServingArea c = new ServingArea();
     new Assistant(tables);
-    new Barmaid(orderQueue, c.getSingleResources(), c.refGlass(), c.refCup(), close);
+    new Barmaid(orderQueue, c.getSingleResources(), c.refGlass(), c.refCup(), close, clock);
     landlord = new Landlord(lastCall, orderQueue, c.getSingleResources(), c.refGlass(), c.refCup(), close);
     
     handshakeQueue = landlord.getHandShakeQueue();

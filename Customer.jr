@@ -12,7 +12,8 @@ public class Customer {
   
   private boolean closed;
   
-  public Customer(cap Resource (Constants.Order) orderQueue, cap void (cap void ()) handShake, Table favouriteTable) {
+  public Customer(cap Resource (Constants.Order) orderQueue,
+		  cap void (cap void ()) handShake, Table favouriteTable) {
     this.orderQueue = orderQueue;
     this.handShake = handShake;
     
