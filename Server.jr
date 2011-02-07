@@ -74,7 +74,7 @@ public class Server {
 	System.out.println(Thread.currentThread() + "Is pouring a cappucino");
 	// Pour the cappucino
 	send coffee();
-    return new cup;
+    return cup;
   }
   protected ServingArea.Cup getChoco() {
 	System.out.println("Servicing order");
@@ -83,6 +83,6 @@ public class Server {
 	System.out.println(Thread.currentThread() + "Is pouring a choco");
 	// Pour the choco
 	send choco();
-	return new cup;    
+	return cup;    
   }
 }
