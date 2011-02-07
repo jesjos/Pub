@@ -58,7 +58,7 @@ public class ServingArea {
     return ref;
   }
   
-  public process serveGlasses {
+  private process serveGlasses {
     while (true) {
       inni Glass getGlass() st !glasses.isEmpty() {
         return glasses.pop();
@@ -70,7 +70,7 @@ public class ServingArea {
     }
   }
   
-  process serveCups {
+  private process serveCups {
     while (true) {
       inni Cup getCup() st !cups.isEmpty() {
         return cups.pop();
