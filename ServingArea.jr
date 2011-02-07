@@ -18,9 +18,14 @@ public class ServingArea {
   private op void tap();
   private cap void ()[] singleResources = new cap void ()[4];
   
-  public ServingArea() {
+  private Clock clock;
+  private op void alarm();
+  
+  public ServingArea(Clock clock) {
     glasses = new ArrayDeque<Glass>();
     cups = new ArrayDeque<Cup>();
+    this.clock = clock;
+    
     
     for (int i = 0; i < Constants.GLASSES; i++)
       glasses.add(new Glass());
@@ -61,6 +66,8 @@ public class ServingArea {
   private process serveGlasses {
     while (true) {
       inni Glass getGlass() st !glasses.isEmpty() {
+      	clock.setAlarm(alarm , Constants.GETGLASS);
+      	receive alarm();
         return glasses.pop();
       }
       [] void replaceGlass(Glass g) {
@@ -73,6 +80,8 @@ public class ServingArea {
   private process serveCups {
     while (true) {
       inni Cup getCup() st !cups.isEmpty() {
+      	clock.setAlarm(alarm , Constants.GETCUP);
+      	receive alarm();
         return cups.pop();
       }
       [] void replaceCup(Cup g) {
