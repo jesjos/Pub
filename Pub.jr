@@ -63,9 +63,9 @@ public class Pub {
   }
   
   process closingTime {
-    op void closingTime();
-    clock.setAlarmEndTime(closingTime);
-    receive closingTime();
+    op void isClosingTime();
+    clock.setAlarmEndTime(isClosingTime);
+    receive isClosingTime();
     closed = true;
     
     for (int i = 0; i< Constants.NUMBER_OF_STAFF; i++)
