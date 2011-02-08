@@ -3,8 +3,8 @@ import edu.ucdavis.jr.*;
 public class Customer {
   private cap Resource (Constants.Order) orderQueue;
   private cap void (cap void ()) handShake;
-  private cap Resource (Constants.Order) order;
-  private cap void () lastCall;
+  private op Resource order (Constants.Order) ;
+  private op void lastCall ();
   private cap void (ServingArea.Glass) putGlass;
   private cap void (ServingArea.Cup) putCup;
   
@@ -15,7 +15,11 @@ public class Customer {
   
   private boolean closed;
   
-  public Customer(cap Resource (Constants.Order) orderQueue, cap void (cap void ()) handShake, Table favouriteTable, Clock clock) {
+  private op void alarm ();
+  
+  public Customer(cap Resource (Constants.Order) orderQueue,
+  								cap void (cap void ()) handShake,
+  								Table favouriteTable, Clock clock) {
     this.orderQueue = orderQueue;
     this.handShake = handShake;
     this.clock = clock;
@@ -23,8 +27,6 @@ public class Customer {
     putCup = favouriteTable.getPutCup();
     putGlass = favouriteTable.getPutGlass();
     
-    lastCall = new op void ();
-    order = new op Resource (Constants.Order);
     closed = false;
     numberOfDrinks = 0;
     
@@ -33,7 +35,7 @@ public class Customer {
   
   /* Perhaps last order situations can be solved by having a boolean that checks whether the bar has closed. */
   process mainLoop {
-    op void alarm ();
+   
     
     Constants.Order randomOrder;
     while (!closed && (numberOfDrinks < Constants.MAX_DRINKS)) {
@@ -59,13 +61,16 @@ public class Customer {
     System.out.println("Customer going home.");
   }
   
-  process checkLastCall {
+  process checkLastCall { //may need semaphores for this, later issue
+  	
     receive lastCall();
-    doTheLastOrder();
-  }
-  
-  private void doTheLastOrder() {
-    // Set down your current drink immediatly and place a new order
     
+    if(numberOfDrinks < Constants.MAX_DRINKS){
+    	send alarm();
+    	numberOfDrinks = 4;
+    	receive alarm();
+  	}
+
   }
+
 }
