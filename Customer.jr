@@ -18,7 +18,8 @@ public class Customer {
 	private op void alarm ();
 	private Constants.Order myOrder;
 
-	private op void isDrinking ();
+	private op int isDrinking ();
+	private int test;
 	
 	public Customer(cap Resource (Constants.Order) orderQueue,
 									cap void (cap void ()) handShake,
@@ -69,13 +70,15 @@ public class Customer {
 	process checkLastCall { //may need semaphores for this, later issue
 
 		receive lastCall();
+		receive isDrinking(test);
 		//it is assured that the customer is drinking if isDrinking op contains a message
-    // if(numberOfDrinks < Constants.MAX_DRINKS && myOrder.equals(Constants.Order.BEER) && (isDrinking.size() > 0)){
-    //  numberOfDrinks = 4;
-    //  send alarm();
-    //  receive alarm();
-    // }
+		if(numberOfDrinks < Constants.MAX_DRINKS && myOrder.equals(Constants.Order.BEER) && !test.isEmpty()){
+			numberOfDrinks = 4;
+			send isDrinking();
+			send alarm();
+			receive alarm();
+		}
 
-	}
+	} 
 
 }
