@@ -40,7 +40,7 @@ public class Assistant {
     }
     
     doLastRounds();
-    System.out.println("Assistan: Fuck this - I go home.");
+    System.out.println("Assistant: Fuck this - I go home.");
     send assistantDone();
   }
   
