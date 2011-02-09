@@ -15,21 +15,24 @@ public class Barmaid extends Server {
   }
   
   private process serve {
+    Resource drink = null;
     
     while (!closed) {
-      inni Resource orderQueue(Constants.Order order, MyTime orderStartTime) {
+      inni Resource orderQueue(Constants.Order order, MyTime orderStartTime) by 1 {
         switch (order) {
-          case BEER :   return getBeer();
-          case CAPPU :  return getCappu();
-          case CHOCO :  return getChoco();
+          case BEER :   drink = getBeer(); break;
+          case CAPPU :  drink = getCappu(); break;
+          case CHOCO :  drink = getChoco(); break;
         }
         send statistics(new MyTime(clock.getTime().compareTo(orderStartTime)));
-        return ;
+        return drink;
       }
-      [] void closingTime() {
+      [] void closingTime() by 0 {
+        System.out.println("Barmaid acknowledges closure.");
 			  closed = true;
 			}
     } // -- end while
+    System.out.println("Barmaid served: " + glasses + " glasses and " + cups + " cups");
   }
   
 }

@@ -16,12 +16,12 @@ public class Constants {
   public static final MyTime DRINK_TIME = new MyTime(0,10,0);
   
   // Tables
-  public static final int N_OF_TABLES = 10;
+  public static final int N_OF_TABLES = 2;
   public static final int TABLE_SPACE = 10;
   
   // Resources
-  public static final int GLASSES = 30;
-  public static final int CUPS = 30;
+  public static final int GLASSES = 20;
+  public static final int CUPS = 20;
   
 	// Server
   public static final MyTime POURBEER = new MyTime(0,1,0);

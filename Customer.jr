@@ -43,7 +43,7 @@ public class Customer {
 			
 			drink = orderQueue(myOrder, clock.getTime());
 			if (drink instanceof Landlord.Refusal) {
-			  System.out.println("------------------>> I was refused!!!! I'll return later with an AK-47 and blast the place.");
+			  System.out.println("------------------>> I was refused!!!! I'll return later with an AK-47 and blast the place."  + drink);
 			  break;
 		  }
 			numberOfDrinks++;
@@ -60,6 +60,7 @@ public class Customer {
 			} else {
 				call putGlass((ServingArea.Glass) drink);
 			}
+			drink = null;
 			System.out.println("I put down my drink");
 			// Repeat
 		}
@@ -70,13 +71,14 @@ public class Customer {
 	process checkLastCall { //may need semaphores for this, later issue
 
 		receive lastCall();
+		System.out.println("Received a last call!");
 
-		//it is assured that the customer is drinking if isDrinking op contains a message
-		if(numberOfDrinks < Constants.MAX_DRINKS && myOrder.equals(Constants.Order.BEER) && drinker){
-			numberOfDrinks = 4;
-			send alarm();
-			receive alarm();
-		}
+    // it is assured that the customer is drinking if isDrinking op contains a message
+    if(numberOfDrinks < Constants.MAX_DRINKS && myOrder.equals(Constants.Order.BEER) && drinker){
+     numberOfDrinks = 4;
+     send alarm();
+     receive alarm();
+    }
 
 	} 
 	
