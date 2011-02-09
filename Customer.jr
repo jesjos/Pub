@@ -45,8 +45,10 @@ public class Customer {
 		while (numberOfDrinks < Constants.MAX_DRINKS) {
 			
 			drink = orderQueue(myOrder);
-			if (drink instanceof ServingArea.Refusal)
+			if (drink instanceof ServingArea.Refusal) {
+			  System.out.println("------------------>> I was refused!!!! I'll return later with an AK-47 and blast the place.");
 			  break;
+		  }
 			numberOfDrinks++;
 			System.out.println("I received a drink!");
 			// Go to table

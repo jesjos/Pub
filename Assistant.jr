@@ -81,18 +81,20 @@ public class Assistant {
     }
     
     // Replace into cupboard
-    for (int j = 0; j < glasses.size(); j++) {
-      System.out.println("I'm replacing shit");
+    while (glasses.peek() != null){
       call sa.replaceGlass(glasses.poll());
       send clock.setAlarm(alarm, Constants.REPLACE);
       receive alarm();
     }
     
-    for (int j = 0; j < cups.size(); j++) {
+    System.out.println("Cups size " + cups.size());
+    while (cups.peek() != null){
       call sa.replaceCup(cups.poll());
       send clock.setAlarm(alarm, Constants.REPLACE);
       receive alarm();
     }
+    
+    System.out.println("After table clean: size Glasses " + glasses.size() + " size Cups " + cups.size());
     
   }
   

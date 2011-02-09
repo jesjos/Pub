@@ -32,7 +32,7 @@ public class Pub {
   
   public void initialize() {
     
-    clock = new Clock(5, new MyTime(0, 59, 0));
+    clock = new Clock(1, new MyTime(0, 59, 0));
     
     for (int i = 0; i < Constants.N_OF_TABLES; i++ ) {
       tables.add(new Table()); 
@@ -67,6 +67,7 @@ public class Pub {
     clock.setAlarmEndTime(isClosingTime);
     receive isClosingTime();
     closed = true;
+    System.out.println("------------------------------------------> Closing Time");
     
     for (int i = 0; i< Constants.NUMBER_OF_STAFF; i++)
       send close();

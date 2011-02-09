@@ -38,7 +38,6 @@ public class Server {
 	}
 
 	private process serve {
-		cap Resource (Constants.Order) orderChannel;
 
 		while (customersLeft) {
 			if (this instanceof Barmaid && closed) {
@@ -47,6 +46,7 @@ public class Server {
 			}
 			if (closed) {
 			  inni Resource orderQueue(Constants.Order order) {
+			    System.out.println("------------------------>>> Refusing to serve.");
 			    return new ServingArea.Refusal();
 			  }
 			} else {

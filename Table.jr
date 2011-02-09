@@ -47,9 +47,11 @@ public class Table {
         cups.push(c);
       }
       [] ServingArea.Glass getGlass () {
+        space += 2;
         return glasses.poll();
       }
       [] ServingArea.Cup getCup () {
+        space++;
         return cups.poll();
       }
     }
