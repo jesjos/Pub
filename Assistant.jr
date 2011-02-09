@@ -23,7 +23,7 @@ public class Assistant {
     this.sa = sa;
     this.close = close;
     
-    isClosingTime = false;
+    lastRound = false;
     
     this.pubIsEmpty = pubIsEmpty;
   }
