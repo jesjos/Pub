@@ -3,12 +3,16 @@ import java.util.ArrayDeque;
 import java.util.HashMap;
 
 public class ServingArea {
-  
+
   private ArrayDeque<Glass> glasses;
   private ArrayDeque<Cup> cups;
-  
+
   public op void replaceGlass(Glass); 
   public op void replaceCup(Cup);
+
+  public op int howManyCupsLeft();
+  public op int howManyGlassesLeft();
+  public op void closeServingArea();
   
   private op Glass getGlass();
   private op Cup getCup();
@@ -17,57 +21,57 @@ public class ServingArea {
   private op void choco();
   private op void tap();
   private cap void ()[] singleResources = new cap void ()[4];
-  
+
   private Clock clock;
-  
+
   public ServingArea(Clock clock) {
     glasses = new ArrayDeque<Glass>();
     cups = new ArrayDeque<Cup>();
     this.clock = clock;
-    
-    
+
+
     for (int i = 0; i < Constants.GLASSES; i++)
       glasses.add(new Glass());
     for (int i = 0; i < Constants.CUPS; i++)
       cups.add(new Cup());
-    
+
     singleResources[Constants.MILK] = milk;
     singleResources[Constants.COFFEE] = coffee;
     singleResources[Constants.CHOCO] = choco;
     singleResources[Constants.TAP] = tap;
-    
+
     // Initialize single resources for use
     send milk();
     send coffee();
     send choco();
     send tap();
   }
-  
+
   public cap void ()[] getSingleResources() {
     return singleResources;
   }
-  
+
   public cap Glass () refGlass() {
     cap Glass () ref = getGlass;
     return ref;
   }
-  
+
   public cap Cup () refCup() {
     cap Cup () ref = getCup;
     return ref;
   }
-  
+
   public cap void (Glass) getReplaceGlass() {
     cap void (Glass) ref = replaceGlass;
     return ref;
   }
-  
+
   private process serveGlasses {
     op void alarm ();
     while (true) {
       inni Glass getGlass() st !glasses.isEmpty() {
-      	clock.setAlarm(alarm , Constants.GETGLASS);
-      	receive alarm();
+        clock.setAlarm(alarm , Constants.GETGLASS);
+        receive alarm();
         return glasses.pop();
       }
       [] void replaceGlass(Glass g) {
@@ -78,13 +82,13 @@ public class ServingArea {
       }
     }
   }
-  
+
   private process serveCups {
     op void alarm ();
     while (true) {
       inni Cup getCup() st !cups.isEmpty() {
-      	clock.setAlarm(alarm , Constants.GETCUP);
-      	receive alarm();
+        clock.setAlarm(alarm , Constants.GETCUP);
+        receive alarm();
         return cups.pop();
       }
       [] void replaceCup(Cup g) {
@@ -95,26 +99,39 @@ public class ServingArea {
       }
     }
   }
-  
+
+  private process closeAndCheckStats {
+    boolean closed = false;
+    while (!closed) {
+      inni int howManyCupsLeft () {
+        return cups.size();
+      }
+      [] int howManyGlassesLeft() {
+        return glasses.size();
+      }
+      [] void closeServingArea() {
+        closed = true;
+      }
+      
+    }
+  }
+
   // Resource classes
-  
+
   public static class Glass implements Resource {
-    
+
   }
-  
+
   public static class Cup implements Resource {
-    
+
   }
-  
+
   public static class Milk implements Resource {
-    
+
   }
-  
+
   public static class Chocolate implements Resource {
-    
+
   }
-  
-  public static class Refusal implements Resource {
-    
-  }
+
 }

@@ -8,9 +8,28 @@ public class Barmaid extends Server {
                   cap ServingArea.Glass () getGlass,
                   cap ServingArea.Cup ()   serveCup,
                   cap void ()           closingTime,
-                  Clock clock
+                  Clock clock,
+                  cap void (MyTime) statistics
                   ) {
-    super(orderQueue, singleResources, getGlass, serveCup, closingTime, clock);
+    super(orderQueue, singleResources, getGlass, serveCup, closingTime, clock, statistics);
+  }
+  
+  private process serve {
+    
+    while (!closed) {
+      inni Resource orderQueue(Constants.Order order, MyTime orderStartTime) {
+        switch (order) {
+          case BEER :   return getBeer();
+          case CAPPU :  return getCappu();
+          case CHOCO :  return getChoco();
+        }
+        send statistics(new MyTime(clock.getTime().compareTo(orderStartTime)));
+        return ;
+      }
+      [] void closingTime() {
+			  closed = true;
+			}
+    } // -- end while
   }
   
 }

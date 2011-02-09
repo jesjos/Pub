@@ -42,7 +42,7 @@ public class Customer {
 		while (numberOfDrinks < Constants.MAX_DRINKS) {
 			
 			drink = orderQueue(myOrder, clock.getTime());
-			if (drink instanceof ServingArea.Refusal) {
+			if (drink instanceof Landlord.Refusal) {
 			  System.out.println("------------------>> I was refused!!!! I'll return later with an AK-47 and blast the place.");
 			  break;
 		  }

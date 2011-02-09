@@ -4,56 +4,95 @@ import java.util.HashMap;
 
 public class Landlord extends Server {
 
-	private cap void () lastCall;
-	private op void handshakeQueue (cap void());
-	private ArrayList<cap void ()> customers = new ArrayList<cap void()>();; 
+  private cap void () lastCall;
+  private op void handshakeQueue (cap void());
+  private ArrayList<cap void ()> customers = new ArrayList<cap void()>();
+  private ArrayList<MyTime> stats = new ArrayList<MyTime>();
+  private ServingArea sa;
 
-	public op void pubIsEmpty ();
-	public op void assistantDone();
-	
-	public Landlord(cap void () lastCall,
-			cap Resource (Constants.Order, MyTime) orderQueue, 
-			cap void ()[] singleResources,
-			cap ServingArea.Glass () getGlass,
-			cap ServingArea.Cup ()   serveCup,
-			cap void ()           closingTime,
-			Clock clock
-	) {
+  public op void pubIsEmpty ();
+  public op void assistantDone();
 
-		super(orderQueue, singleResources, getGlass, serveCup, closingTime, clock);
-		this.lastCall = lastCall;
-	}
+  public Landlord(cap void () lastCall,
+    cap Resource (Constants.Order, MyTime) orderQueue, 
+    cap void ()[] singleResources,
+    cap ServingArea.Glass () getGlass,
+    cap ServingArea.Cup ()   serveCup,
+    cap void ()           closingTime,
+    Clock clock,
+    cap void (MyTime) statistics,
+    ServingArea sa
+  ) {
 
-	public cap void (cap void ()) getHandShakeQueue() {
-		return handshakeQueue;
-	}		
+    super(orderQueue, singleResources, getGlass, serveCup, closingTime, clock,statistics);
+    this.lastCall = lastCall;
+    this.sa = sa;
+  }
 
-	private process greet {
-		cap void () customer;
-		boolean isEmpty = false;
-		while (!isEmpty) {
-			receive handshakeQueue(customer);
-			System.out.println("Received a handshake, number of customers is " + customers.size());
-			if(customers.contains(customer)) {
-				customers.remove(customer);
-				if(customers.isEmpty()) {
-				  System.out.println("Sending pub is empty");
-					send pubIsEmpty();
-					isEmpty = true;
-				}
-			}
-			else{
-				customers.add(customer);
-			}
-			receive assistantDone();
-			
-		}
-	}
+  public cap void (cap void ()) getHandShakeQueue() {
+    return handshakeQueue;
+  }		
 
-	private process checkLastCall {
-		receive lastCall();
-		for (cap void() c : customers)
-			send c();
-	}
+  private process serve {
+    boolean customersLeft = true;
+    Resource drink = null;
+
+    while (customersLeft) {
+      inni Resource orderQueue(Constants.Order order, MyTime orderStartTime) {
+        if (closed) {
+          return new Refusal();
+        } else {
+          switch (order) {
+            case BEER  :  drink = getBeer();
+            case CAPPU :  drink = getCappu();
+            case CHOCO :  drink = getChoco();
+          }
+          send statistics(new MyTime(clock.getTime().compareTo(orderStartTime)));
+          return drink;
+        }
+      }
+      [] void handshakeQueue (cap void () customer) {
+        if(customers.contains(customer)) {
+          customers.remove(customer);
+          System.out.println("Someone left, now " + customers.size() + " customers left.");
+          if(customers.isEmpty() && closed) {
+            System.out.println("Sending pub is empty");
+            send pubIsEmpty();
+            customersLeft = false;
+          }
+        }
+        else {
+          customers.add(customer);
+        }
+      }
+      [] void statistics (MyTime orderTime) {
+        stats.add(orderTime);
+      }
+    } // -- end while
+
+    receive assistantDone();
+    System.out.println("Glass in cupboard " + sa.howManyGlassesLeft() + " Cups in cupboard " + sa.howManyCupsLeft());
+    // Compile stats
+    send sa.closeServingArea();
+    clock.shutdown();
+  } 
+
+  // These need to be done asynchronously
+  process lastCallAndClosingTime {
+    while (!closed) {
+      inni void closingTime() {
+        closed = true;
+      }
+      [] void lastCall() {
+        for (cap void() customerLastCallMessage : customers)
+          send customerLastCallMessage();
+        System.out.println("Sent last call.");
+      }
+    }
+  }
+
+  public static class Refusal implements Resource {
+
+  }
 
 }

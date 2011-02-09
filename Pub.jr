@@ -14,7 +14,8 @@ public class Pub {
   
   private op void lastCall ();
   private op void close();
-  private op Resource orderQueue (Constants.Order);
+  private op Resource orderQueue (Constants.Order, MyTime);
+  private op void statistics (MyTime);
   private cap void (cap void()) handshakeQueue;
   
   public op void print(String);
@@ -40,8 +41,8 @@ public class Pub {
     
     ServingArea sa = new ServingArea(clock);
    
-    new Barmaid(orderQueue, sa.getSingleResources(), sa.refGlass(), sa.refCup(), close, clock);
-    landlord = new Landlord(lastCall, orderQueue, sa.getSingleResources(), sa.refGlass(), sa.refCup(), close, clock);
+    landlord = new Landlord(lastCall, orderQueue, sa.getSingleResources(), sa.refGlass(), sa.refCup(), close, clock, statistics, sa);
+    new Barmaid(orderQueue, sa.getSingleResources(), sa.refGlass(), sa.refCup(), close, clock, statistics);
     new Assistant(tables, clock, sa, close, landlord.pubIsEmpty, landlord.assistantDone);
     handshakeQueue = landlord.getHandShakeQueue();
 
