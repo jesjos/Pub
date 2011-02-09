@@ -1,76 +1,81 @@
 import edu.ucdavis.jr.*;
 
 public class Customer {
-  private cap Resource (Constants.Order) orderQueue;
-  private cap void (cap void ()) handShake;
-  private op Resource order (Constants.Order) ;
-  private op void lastCall ();
-  private cap void (ServingArea.Glass) putGlass;
-  private cap void (ServingArea.Cup) putCup;
-  
-  private Resource drink;
-  private Clock clock;
-  
-  private int numberOfDrinks;
-  
-  private boolean closed;
-  
-  private op void alarm ();
-  
-  public Customer(cap Resource (Constants.Order) orderQueue,
-  								cap void (cap void ()) handShake,
-  								Table favouriteTable, Clock clock) {
-    this.orderQueue = orderQueue;
-    this.handShake = handShake;
-    this.clock = clock;
-    
-    putCup = favouriteTable.getPutCup();
-    putGlass = favouriteTable.getPutGlass();
-    
-    closed = false;
-    numberOfDrinks = 0;
-    
-    send handShake(lastCall);
-  }
-  
-  /* Perhaps last order situations can be solved by having a boolean that checks whether the bar has closed. */
-  process mainLoop {
-   
-    
-    Constants.Order randomOrder;
-    while (!closed && (numberOfDrinks < Constants.MAX_DRINKS)) {
-      randomOrder = Constants.Order.values()[(int) (Math.random() * 3)];
-      drink = orderQueue(randomOrder);
-      numberOfDrinks++;
-      System.out.println("I received a drink!");
-      // Go to table
-      // Drink
-      send clock.setAlarm(alarm, Constants.DRINK_TIME);
-      receive alarm();
-      // Set drink to table IF IT ISN'T ALREADY GONE
-      if (this.drink != null) {
-        if (drink instanceof ServingArea.Cup) {
-          call putCup((ServingArea.Cup) drink);
-        } else {
-          call putGlass((ServingArea.Glass) drink);
-        }
-      }
-      System.out.println("I put down my drink");
-      // Repeat
-    }
-    System.out.println("Customer going home.");
-  }
-  
-  process checkLastCall { //may need semaphores for this, later issue
-  	
-    receive lastCall();
-    
-    if(numberOfDrinks < Constants.MAX_DRINKS){
-    	send alarm();
-    	numberOfDrinks = 4;
-    	receive alarm();
-  	}
+	private cap Resource (Constants.Order) orderQueue;
+	private cap void (cap void ()) handShake;
+	private op Resource order (Constants.Order) ;
+	private op void lastCall ();
+	private cap void (ServingArea.Glass) putGlass;
+	private cap void (ServingArea.Cup) putCup;
 
-  }
+	private Resource drink;
+	private Clock clock;
+
+	private int numberOfDrinks;
+
+	private boolean closed;
+
+	private op void alarm ();
+	private Constants.Order myOrder;
+
+	private op void isDrinking ();
+	
+	public Customer(cap Resource (Constants.Order) orderQueue,
+									cap void (cap void ()) handShake,
+									Table favouriteTable, Clock clock) {
+		this.orderQueue = orderQueue;
+		this.handShake = handShake;
+		this.clock = clock;
+
+		putCup = favouriteTable.getPutCup();
+		putGlass = favouriteTable.getPutGlass();
+
+		closed = false;
+		numberOfDrinks = 0;
+
+		myOrder = Constants.Order.values()[(int) (Math.random() * 3)];
+
+		send handShake(lastCall);
+	}
+
+	/* Perhaps last order situations can be solved by having a boolean that checks whether the bar has closed. */
+	process mainLoop {
+
+
+
+		while (!closed && (numberOfDrinks < Constants.MAX_DRINKS)) {
+			
+			drink = orderQueue(myOrder);
+			numberOfDrinks++;
+			System.out.println("I received a drink!");
+			// Go to table
+			// Drink
+			send isDrinking();
+			send clock.setAlarm(alarm, Constants.DRINK_TIME);
+			receive alarm();
+			receive isDrinking();
+			// Set drink to table IF IT ISN'T ALREADY GONE
+			if (drink instanceof ServingArea.Cup) {
+				call putCup((ServingArea.Cup) drink);
+			} else {
+				call putGlass((ServingArea.Glass) drink);
+			}
+			System.out.println("I put down my drink");
+			// Repeat
+		}
+		System.out.println("Customer going home.");
+	}
+
+	process checkLastCall { //may need semaphores for this, later issue
+
+		receive lastCall();
+		//it is assured that the customer is drinking if isDrinking op contains a message
+		if(numberOfDrinks < Constants.MAX_DRINKS && myOrder.equals(Orders.BEER) && isDrinking.size() > 0)){
+			numberOfDrinks = 4;
+			send alarm();
+			receive alarm();
+		}
+
+	}
 
 }
