@@ -8,6 +8,8 @@ public class Landlord extends Server {
 	private op void handshakeQueue (cap void());
 	private ArrayList<cap void ()> customers = new ArrayList<cap void()>();; 
 
+	public op void pubIsEmpty ();
+	
 	public Landlord(cap void () lastCall,
 			cap Resource (Constants.Order) orderQueue, 
 			cap void ()[] singleResources,
@@ -29,8 +31,14 @@ public class Landlord extends Server {
 		cap void () customer;
 		while (true) {
 			receive handshakeQueue(customer);
-			customers.add(customer);
-			System.out.println("Received a customer");
+			if(customers.contains(customer))
+				customers.remove(customer);
+				if(customers.isEmpty())
+					send pubIsEmpty();
+			else{
+				customers.add(customer);
+				System.out.println("Received a customer");
+			}
 		}
 	}
 

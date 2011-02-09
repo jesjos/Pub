@@ -13,9 +13,11 @@ public class Assistant {
   private cap void () close;
   private op void alarm ();
   
-  private boolean isClosingTime;
+  private boolean lastRound;
   
-  public Assistant(Collection<Table> tables, Clock clock, ServingArea sa, cap void () close) {
+  private cap void () pubIsEmpty;
+  
+  public Assistant(Collection<Table> tables, Clock clock, ServingArea sa, cap void () close, cap void () pubIsEmpty) {
     this.tables = new ArrayList<Table>(tables);
     this.clock = clock;
     this.sa = sa;
@@ -23,23 +25,24 @@ public class Assistant {
     
     isClosingTime = false;
     
+    this.pubIsEmpty = pubIsEmpty;
   }
   
   process work {
     int nTables = Constants.N_OF_TABLES;
     int i = 0;
-    while (!isClosingTime) {
+    while (!lastRound) {
       cleanTable(i);
       i = (i + 1) % Constants.N_OF_TABLES;
       send clock.setAlarm(alarm, Constants.REST);
       receive alarm();
     }
     
-    lastRounds();
+    doLastRounds();
     System.out.println("Assistan: Fuck this - I go home.");
   }
   
-  public void lastRounds() {
+  public void doLastRounds() {
     for (int i = 0; i < tables.size(); i++) {
       cleanTable(i);
     }
@@ -93,9 +96,9 @@ public class Assistant {
     
   }
   
-  process checkForClosingTime {
-    receive close();
-    isClosingTime = true;
+  process checkIfPubIsEmpty {
+    receive pubIsEmpty();
+    lastRound = true;
   }
   
 }

@@ -39,10 +39,10 @@ public class Pub {
     }
     
     ServingArea sa = new ServingArea(clock);
-    new Assistant(tables, clock, sa, close);
+   
     new Barmaid(orderQueue, sa.getSingleResources(), sa.refGlass(), sa.refCup(), close, clock);
     landlord = new Landlord(lastCall, orderQueue, sa.getSingleResources(), sa.refGlass(), sa.refCup(), close, clock);
-    
+    new Assistant(tables, clock, sa, close, landlord.pubIsEmpty);
     handshakeQueue = landlord.getHandShakeQueue();
 
   }
