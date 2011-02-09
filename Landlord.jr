@@ -31,13 +31,16 @@ public class Landlord extends Server {
 		cap void () customer;
 		while (true) {
 			receive handshakeQueue(customer);
-			if(customers.contains(customer))
+			System.out.println("Received a handshake, number of customers is " + customers.size());
+			if(customers.contains(customer)) {
 				customers.remove(customer);
-				if(customers.isEmpty())
+				if(customers.isEmpty()) {
+				  System.out.println("Sending pub is empty");
 					send pubIsEmpty();
+				}
+			}
 			else{
 				customers.add(customer);
-				System.out.println("Received a customer");
 			}
 		}
 	}

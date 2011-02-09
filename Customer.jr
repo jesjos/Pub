@@ -45,6 +45,8 @@ public class Customer {
 		while (numberOfDrinks < Constants.MAX_DRINKS) {
 			
 			drink = orderQueue(myOrder);
+			if (drink instanceof ServingArea.Refusal)
+			  break;
 			numberOfDrinks++;
 			System.out.println("I received a drink!");
 			// Go to table
@@ -63,6 +65,7 @@ public class Customer {
 			// Repeat
 		}
 		System.out.println("Customer going home.");
+		send handShake(lastCall);
 	}
 
 	process checkLastCall { //may need semaphores for this, later issue

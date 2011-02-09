@@ -41,17 +41,24 @@ public class Server {
 		cap Resource (Constants.Order) orderChannel;
 
 		while (customersLeft) {
-			if (this instanceof Barmaid && closed)
+			if (this instanceof Barmaid && closed) {
+				System.out.println("\t\t\tBarmaid says: Screw you guys, I'm going home!");
 				break;
-			//receive orderQueue(orderChannel);
-			inni Resource orderQueue(Constants.Order order) {
-				System.out.println("Got an order");
-				switch (order) {
-				case BEER : System.out.println("BEER"); return getBeer();
-				case CAPPU : System.out.println("CAPPU"); return getCappu();
-				case CHOCO : System.out.println("CHOCO"); return getChoco();
+			}
+			if (closed) {
+			  inni Resource orderQueue(Constants.Order order) {
+			    return new ServingArea.Refusal();
+			  }
+			} else {
+  			inni Resource orderQueue(Constants.Order order) {
+  				System.out.println("Got an order");
+  				switch (order) {
+  				case BEER : System.out.println("BEER"); return getBeer();
+  				case CAPPU : System.out.println("CAPPU"); return getCappu();
+  				case CHOCO : System.out.println("CHOCO"); return getChoco();
+  				}
+  				return ;
 				}
-				return ;
 			}
 		}
 	}
