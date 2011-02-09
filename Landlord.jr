@@ -31,10 +31,11 @@ public class Landlord extends Server {
 		cap void () customer;
 		while (true) {
 			receive handshakeQueue(customer);
-			if(customers.contains(customer))
+			if(customers.contains(customer)){
 				customers.remove(customer);
 				if(customers.isEmpty())
 					send pubIsEmpty();
+			}
 			else{
 				customers.add(customer);
 				System.out.println("Received a customer");
