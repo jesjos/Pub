@@ -70,11 +70,11 @@ public class Customer {
 
 		receive lastCall();
 		//it is assured that the customer is drinking if isDrinking op contains a message
-		if(numberOfDrinks < Constants.MAX_DRINKS && myOrder.equals(Orders.BEER) && isDrinking.size() > 0)){
-			numberOfDrinks = 4;
-			send alarm();
-			receive alarm();
-		}
+    // if(numberOfDrinks < Constants.MAX_DRINKS && myOrder.equals(Constants.Order.BEER) && (isDrinking.size() > 0)){
+    //  numberOfDrinks = 4;
+    //  send alarm();
+    //  receive alarm();
+    // }
 
 	}
 
