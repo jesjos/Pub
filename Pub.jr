@@ -32,7 +32,7 @@ public class Pub {
   
   public void initialize() {
     
-    clock = new Clock(10, new MyTime(0, 59, 0));
+    clock = new Clock(5, new MyTime(0, 59, 0));
     
     for (int i = 0; i < Constants.N_OF_TABLES; i++ ) {
       tables.add(new Table()); 

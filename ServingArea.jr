@@ -71,10 +71,10 @@ public class ServingArea {
         return glasses.pop();
       }
       [] void replaceGlass(Glass g) {
-        System.out.println("Replace a glass, current number: " + glasses.size());
         clock.setAlarm(alarm, Constants.REPLACE);
         receive alarm();
         glasses.add(g);
+        System.out.println("Replaced a glass, current number: " + glasses.size());
       }
     }
   }
@@ -91,6 +91,7 @@ public class ServingArea {
         clock.setAlarm(alarm, Constants.REPLACE);
         receive alarm();
         cups.add(g);
+        System.out.println("Replace a cup, current number: " + cups.size());
       }
     }
   }
@@ -110,6 +111,10 @@ public class ServingArea {
   }
   
   public static class Chocolate implements Resource {
+    
+  }
+  
+  public static class Refusal implements Resource {
     
   }
 }
