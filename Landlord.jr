@@ -9,9 +9,10 @@ public class Landlord extends Server {
 	private ArrayList<cap void ()> customers = new ArrayList<cap void()>();; 
 
 	public op void pubIsEmpty ();
+	public op void assistantDone();
 	
 	public Landlord(cap void () lastCall,
-			cap Resource (Constants.Order) orderQueue, 
+			cap Resource (Constants.Order, MyTime) orderQueue, 
 			cap void ()[] singleResources,
 			cap ServingArea.Glass () getGlass,
 			cap ServingArea.Cup ()   serveCup,
@@ -29,7 +30,8 @@ public class Landlord extends Server {
 
 	private process greet {
 		cap void () customer;
-		while (true) {
+		boolean isEmpty = false;
+		while (!isEmpty) {
 			receive handshakeQueue(customer);
 			System.out.println("Received a handshake, number of customers is " + customers.size());
 			if(customers.contains(customer)) {
@@ -37,11 +39,14 @@ public class Landlord extends Server {
 				if(customers.isEmpty()) {
 				  System.out.println("Sending pub is empty");
 					send pubIsEmpty();
+					isEmpty = true;
 				}
 			}
 			else{
 				customers.add(customer);
 			}
+			receive assistantDone();
+			
 		}
 	}
 

@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 public class Barmaid extends Server {
  
-  public Barmaid (cap Resource (Constants.Order) orderQueue, 
+  public Barmaid (cap Resource (Constants.Order, MyTime) orderQueue, 
                   cap void ()[] singleResources,
                   cap ServingArea.Glass () getGlass,
                   cap ServingArea.Cup ()   serveCup,

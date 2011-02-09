@@ -16,13 +16,14 @@ public class Assistant {
   private boolean lastRound;
   
   private cap void () pubIsEmpty;
+  private cap void () assistantDone;
   
-  public Assistant(Collection<Table> tables, Clock clock, ServingArea sa, cap void () close, cap void () pubIsEmpty) {
+  public Assistant(Collection<Table> tables, Clock clock, ServingArea sa, cap void () close, cap void () pubIsEmpty, cap void () assistantDone) {
     this.tables = new ArrayList<Table>(tables);
     this.clock = clock;
     this.sa = sa;
     this.close = close;
-    
+    this.assistantDone = assistantDone;
     lastRound = false;
     
     this.pubIsEmpty = pubIsEmpty;
@@ -40,6 +41,7 @@ public class Assistant {
     
     doLastRounds();
     System.out.println("Assistan: Fuck this - I go home.");
+    send assistantDone();
   }
   
   public void doLastRounds() {

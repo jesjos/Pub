@@ -42,7 +42,7 @@ public class Pub {
    
     new Barmaid(orderQueue, sa.getSingleResources(), sa.refGlass(), sa.refCup(), close, clock);
     landlord = new Landlord(lastCall, orderQueue, sa.getSingleResources(), sa.refGlass(), sa.refCup(), close, clock);
-    new Assistant(tables, clock, sa, close, landlord.pubIsEmpty);
+    new Assistant(tables, clock, sa, close, landlord.pubIsEmpty, landlord.assistantDone);
     handshakeQueue = landlord.getHandShakeQueue();
 
   }

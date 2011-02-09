@@ -1,7 +1,7 @@
 import edu.ucdavis.jr.*;
 
 public class Customer {
-	private cap Resource (Constants.Order) orderQueue;
+	private cap Resource (Constants.Order, MyTime) orderQueue;
 	private cap void (cap void ()) handShake;
 	private op Resource order (Constants.Order) ;
 	private op void lastCall ();
@@ -19,7 +19,7 @@ public class Customer {
 	
 	boolean drinker;
 	
-	public Customer(cap Resource (Constants.Order) orderQueue,
+	public Customer(cap Resource (Constants.Order, MyTime) orderQueue,
 									cap void (cap void ()) handShake,
 									Table favouriteTable, Clock clock) {
 		this.orderQueue = orderQueue;
@@ -37,14 +37,11 @@ public class Customer {
 		send handShake(lastCall);
 	}
 
-	/* Perhaps last order situations can be solved by having a boolean that checks whether the bar has closed. */
 	process mainLoop {
-
-
 
 		while (numberOfDrinks < Constants.MAX_DRINKS) {
 			
-			drink = orderQueue(myOrder);
+			drink = orderQueue(myOrder, clock.getTime());
 			if (drink instanceof ServingArea.Refusal) {
 			  System.out.println("------------------>> I was refused!!!! I'll return later with an AK-47 and blast the place.");
 			  break;

@@ -1,7 +1,7 @@
 import edu.ucdavis.jr.*;
 
 public class Server {
-	protected cap Resource (Constants.Order) orderQueue;
+	protected cap Resource (Constants.Order, MyTime) orderQueue;
 	protected cap ServingArea.Glass () getGlass;
 	protected cap ServingArea.Cup () getCup;
 	protected cap void () closingTime;
@@ -13,23 +13,26 @@ public class Server {
 	protected boolean closed;
 	protected boolean customersLeft;
 	protected Clock clock;
-
+	protected cap void (MyTime) statistics;
+	protected ArrayList<MyTime> stats = new ArrayList<MyTime>();
 	public Server (
-			cap Resource (Constants.Order) orderQueue, 
+			cap Resource (Constants.Order, MyTime) orderQueue, 
 			cap void ()[] singleResources,
 			cap ServingArea.Glass () getGlass,
 			cap ServingArea.Cup ()   getCup,
 			cap void ()           closingTime,
-			Clock clock
+			Clock clock,
+			cap void (MyTime) statistics
 	) {
 		this.orderQueue = orderQueue;
 		this.getCup   = getCup;
 		this.getGlass = getGlass;
 		this.closingTime = closingTime;
 		this.clock = clock;
+		this.statistics = statistics;
 		closed = false;
 		customersLeft = true;
-
+		
 		milk = singleResources[Constants.MILK];
 		coffee = singleResources[Constants.COFFEE];
 		choco = singleResources[Constants.CHOCO];
@@ -38,27 +41,31 @@ public class Server {
 	}
 
 	private process serve {
-
+		MyTime orderStartTime;
 		while (customersLeft) {
 			if (this instanceof Barmaid && closed) {
 				System.out.println("\t\t\tBarmaid says: Screw you guys, I'm going home!");
 				break;
 			}
 			if (closed) {
-			  inni Resource orderQueue(Constants.Order order) {
+			  inni Resource orderQueue(Constants.Order order, MyTime t) {
 			    System.out.println("------------------------>>> Refusing to serve.");
 			    return new ServingArea.Refusal();
 			  }
 			} else {
-  			inni Resource orderQueue(Constants.Order order) {
+  			inni Resource orderQueue(Constants.Order order, MyTime orderStartTime) {
   				System.out.println("Got an order");
   				switch (order) {
   				case BEER : System.out.println("BEER"); return getBeer();
   				case CAPPU : System.out.println("CAPPU"); return getCappu();
   				case CHOCO : System.out.println("CHOCO"); return getChoco();
   				}
+  				send statistics(new MyTime(clock.getTime().compareTo(orderStartTime)));
   				return ;
 				}
+  			[] void statistics (MyTime orderTime) st (this instanceof Landlord){
+  				stats.add(orderTime);
+  			}
 			}
 		}
 	}
