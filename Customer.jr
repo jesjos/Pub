@@ -70,11 +70,10 @@ public class Customer {
 	process checkLastCall { //may need semaphores for this, later issue
 
 		receive lastCall();
-		receive isDrinking(test);
+		
 		//it is assured that the customer is drinking if isDrinking op contains a message
-		if(numberOfDrinks < Constants.MAX_DRINKS && myOrder.equals(Constants.Order.BEER) && !test.isEmpty()){
+		if(numberOfDrinks < Constants.MAX_DRINKS && myOrder.equals(Constants.Order.BEER)){
 			numberOfDrinks = 4;
-			send isDrinking();
 			send alarm();
 			receive alarm();
 		}
