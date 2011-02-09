@@ -13,13 +13,11 @@ public class Customer {
 
 	private int numberOfDrinks;
 
-	private boolean closed;
-
 	private op void alarm ();
+	private op void isDrinking (boolean);
 	private Constants.Order myOrder;
-
-	private op int isDrinking ();
-	private int test;
+	
+	boolean drinker;
 	
 	public Customer(cap Resource (Constants.Order) orderQueue,
 									cap void (cap void ()) handShake,
@@ -31,8 +29,8 @@ public class Customer {
 		putCup = favouriteTable.getPutCup();
 		putGlass = favouriteTable.getPutGlass();
 
-		closed = false;
 		numberOfDrinks = 0;
+    drinker = false;
 
 		myOrder = Constants.Order.values()[(int) (Math.random() * 3)];
 
@@ -44,17 +42,17 @@ public class Customer {
 
 
 
-		while (!closed && (numberOfDrinks < Constants.MAX_DRINKS)) {
+		while (numberOfDrinks < Constants.MAX_DRINKS) {
 			
 			drink = orderQueue(myOrder);
 			numberOfDrinks++;
 			System.out.println("I received a drink!");
 			// Go to table
 			// Drink
-			send isDrinking();
+			send isDrinking(true);
 			send clock.setAlarm(alarm, Constants.DRINK_TIME);
 			receive alarm();
-			receive isDrinking();
+			send isDrinking(false);
 			// Set drink to table IF IT ISN'T ALREADY GONE
 			if (drink instanceof ServingArea.Cup) {
 				call putCup((ServingArea.Cup) drink);
@@ -70,14 +68,20 @@ public class Customer {
 	process checkLastCall { //may need semaphores for this, later issue
 
 		receive lastCall();
-		
+
 		//it is assured that the customer is drinking if isDrinking op contains a message
-		if(numberOfDrinks < Constants.MAX_DRINKS && myOrder.equals(Constants.Order.BEER)){
+		if(numberOfDrinks < Constants.MAX_DRINKS && myOrder.equals(Constants.Order.BEER) && drinker){
 			numberOfDrinks = 4;
 			send alarm();
 			receive alarm();
 		}
 
 	} 
+	
+	process drinkCheck {
+	  while (true) {
+	    receive isDrinking(drinker);
+	  }
+	}
 
 }

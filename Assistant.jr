@@ -79,6 +79,7 @@ public class Assistant {
     
     // Replace into cupboard
     for (int j = 0; j < glasses.size(); j++) {
+      System.out.println("I'm replacing shit");
       call sa.replaceGlass(glasses.poll());
       send clock.setAlarm(alarm, Constants.REPLACE);
       receive alarm();
