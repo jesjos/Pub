@@ -67,11 +67,10 @@ public class Landlord extends Server {
     } // -- end while
 
     receive assistantDone();
-    System.out.println("Glass in cupboard " + sa.howManyGlassesLeft() + " Cups in cupboard " + sa.howManyCupsLeft());
     // Compile stats
-    send sa.closeServingArea();
     clock.shutdown();
     compileStats();
+    send sa.closeServingArea(); 
   } 
 
   // These need to be done asynchronously
@@ -99,7 +98,10 @@ public class Landlord extends Server {
       if (t.compareTo(hi) < 0)
         hi = t;
     }
-
+    
+    System.out.println("Glasses now: " + sa.howManyGlassesLeft() + " should be: " + Constants.GLASSES);
+    System.out.println("Cups now: " + sa.howManyCupsLeft() + " should be: " + Constants.CUPS);
+    
     System.out.println("Highest time: " + hi);
     System.out.println("Lowest time: " + lo);
     
