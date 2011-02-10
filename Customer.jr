@@ -19,9 +19,12 @@ public class Customer {
 
   boolean drinker;
 
-  public Customer(cap Resource (Constants.Order, MyTime) orderQueue,
+  public Customer(
+    cap Resource (Constants.Order, MyTime) orderQueue,
     cap void (Customer) handShake,
-  Table favouriteTable, Clock clock) {
+    Table favouriteTable, 
+    Clock clock
+    ) {
     this.orderQueue = orderQueue;
     this.handShake = handShake;
     this.clock = clock;
@@ -50,33 +53,23 @@ public class Customer {
       System.out.println("I received a drink!");
       // Go to table
       // Drink
-      // send isDrinking(true);
       send clock.setAlarm(alarm, Constants.DRINK_TIME);
-      inni void alarm() {
-        ;
-      }
-      [] lastCall() st (myDrink instanceof Constants.Order.BEER) {
-        ;
-      }
-      // send isDrinking(false);
-      // Set drink to table IF IT ISN'T ALREADY GONE
+      inni void alarm();
+      [] void lastCall() st (myOrder == Constants.Order.BEER);
+      
+      // Place drink on table
       if (drink instanceof ServingArea.Cup) {
         call putCup((ServingArea.Cup) drink);
       } else {
         call putGlass((ServingArea.Glass) drink);
       }
+      
       drink = null;
       System.out.println("I put down my drink");
       // Repeat
     }
     System.out.println("Customer going home.");
     send handShake(this);
-  }
-
-  process drinkCheck {
-    while (true) {
-      receive isDrinking(drinker);
-    }
   }
 
 }

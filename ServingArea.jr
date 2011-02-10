@@ -14,12 +14,12 @@ public class ServingArea {
   public op int howManyGlassesLeft();
   public op void closeServingArea();
   
-  private op Glass getGlass();
-  private op Cup getCup();
-  private op void milk();
-  private op void coffee();
-  private op void choco();
-  private op void tap();
+  public op Glass getGlass();
+  public op Cup getCup();
+  public op void milk();
+  public op void coffee();
+  public op void choco();
+  public op void tap();
   private cap void ()[] singleResources = new cap void ()[4];
 
   private Clock clock;

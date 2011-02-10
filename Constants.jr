@@ -23,7 +23,7 @@ public class Constants {
   public static final int GLASSES = 20;
   public static final int CUPS = 20;
   
-	// Server
+  // Server
   public static final MyTime POURBEER = new MyTime(0,1,0);
   public static final MyTime MIXCOFFEE = new MyTime(0,0,15);
   public static final MyTime MIXCHOCO = new MyTime(0,0,10);

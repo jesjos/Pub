@@ -8,25 +8,21 @@ public class Landlord extends Server {
   private op void handshakeQueue (Customer);
   private ArrayList<Customer> customers = new ArrayList<Customer>();
   private ArrayList<MyTime> stats = new ArrayList<MyTime>();
-  private ServingArea sa;
 
   public op void pubIsEmpty ();
   public op void assistantDone();
 
-  public Landlord(cap void () lastCall,
+  public Landlord(
+    cap void () lastCall,
     cap Resource (Constants.Order, MyTime) orderQueue, 
-    cap void ()[] singleResources,
-    cap ServingArea.Glass () getGlass,
-    cap ServingArea.Cup ()   serveCup,
-    cap void ()           closingTime,
+    cap void () closingTime,
     Clock clock,
     cap void (MyTime) statistics,
     ServingArea sa
   ) {
 
-    super(orderQueue, singleResources, getGlass, serveCup, closingTime, clock,statistics);
+    super(orderQueue, closingTime, clock,statistics, sa);
     this.lastCall = lastCall;
-    this.sa = sa;
   }
 
   public cap void (Customer) getHandShakeQueue() {
@@ -75,8 +71,7 @@ public class Landlord extends Server {
     // Compile stats
     send sa.closeServingArea();
     clock.shutdown();
-    System.out.println("Landlord served: " + glasses + " glasses and " + cups + " cups");
-    System.out.println("Total of" + stats.size() + " orders served.");
+    compileStats();
   } 
 
   // These need to be done asynchronously
@@ -93,6 +88,22 @@ public class Landlord extends Server {
     }
   }
 
+  public void compileStats(){
+    MyTime hi = new MyTime(23,59,59);
+    MyTime lo = new MyTime(0,0,0);
+    
+    // This code is faulty!
+    for (MyTime t : stats) {
+      if (t.compareTo(lo) > 0)
+        lo = t;
+      if (t.compareTo(hi) < 0)
+        hi = t;
+    }
+
+    System.out.println("Highest time: " + hi);
+    System.out.println("Lowest time: " + lo);
+    
+  }
   public static class Refusal implements Resource {
 
   }

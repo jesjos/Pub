@@ -3,15 +3,13 @@ import java.util.HashMap;
 
 public class Barmaid extends Server {
  
-  public Barmaid (cap Resource (Constants.Order, MyTime) orderQueue, 
-                  cap void ()[] singleResources,
-                  cap ServingArea.Glass () getGlass,
-                  cap ServingArea.Cup ()   serveCup,
+  public Barmaid (cap Resource (Constants.Order, MyTime) orderQueue,                   
                   cap void ()           closingTime,
                   Clock clock,
-                  cap void (MyTime) statistics
+                  cap void (MyTime) statistics,
+                  ServingArea sa
                   ) {
-    super(orderQueue, singleResources, getGlass, serveCup, closingTime, clock, statistics);
+    super(orderQueue, closingTime, clock, statistics, sa);
   }
   
   private process serve {
