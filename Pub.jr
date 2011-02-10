@@ -16,7 +16,7 @@ public class Pub {
   private op void close();
   private op Resource orderQueue (Constants.Order, MyTime);
   private op void statistics (MyTime);
-  private cap void (cap void()) handshakeQueue;
+  private cap void (Customer) handshakeQueue;
   
   public op void print(String);
   

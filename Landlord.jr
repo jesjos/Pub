@@ -5,8 +5,8 @@ import java.util.HashMap;
 public class Landlord extends Server {
 
   private cap void () lastCall;
-  private op void handshakeQueue (cap void());
-  private ArrayList<cap void ()> customers = new ArrayList<cap void()>();
+  private op void handshakeQueue (Customer);
+  private ArrayList<Customer> customers = new ArrayList<Customer>();
   private ArrayList<MyTime> stats = new ArrayList<MyTime>();
   private ServingArea sa;
 
@@ -29,7 +29,7 @@ public class Landlord extends Server {
     this.sa = sa;
   }
 
-  public cap void (cap void ()) getHandShakeQueue() {
+  public cap void (Customer) getHandShakeQueue() {
     return handshakeQueue;
   }		
 
@@ -51,7 +51,7 @@ public class Landlord extends Server {
           return drink;
         }
       }
-      [] void handshakeQueue (cap void () customer) {
+      [] void handshakeQueue (Customer customer) {
         if(customers.contains(customer)) {
           customers.remove(customer);
           System.out.println("Someone left, now " + customers.size() + " customers left.");
@@ -86,8 +86,8 @@ public class Landlord extends Server {
         closed = true;
       }
       [] void lastCall() {
-        for (cap void() customerLastCallMessage : customers)
-          send customerLastCallMessage();
+        for (Customer customer: customers)
+          send customer.lastCall();
         System.out.println("Sent last call.");
       }
     }
