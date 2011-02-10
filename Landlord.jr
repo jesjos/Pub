@@ -38,11 +38,14 @@ public class Landlord extends Server {
         if (closed) {
           return new Refusal();
         } else {
+          System.out.println("Start: " + clock.getTime());
           switch (order) {
             case BEER  :  drink = getBeer(); break;
             case CAPPU :  drink = getCappu(); break;
             case CHOCO :  drink = getChoco(); break;
           }
+          System.out.println("Stop: " + clock.getTime());
+          System.out.println("Difference: ---------> "+ new MyTime(clock.getTime().compareTo(orderStartTime)));
           send statistics(new MyTime(clock.getTime().compareTo(orderStartTime)));
           return drink;
         }
@@ -88,14 +91,15 @@ public class Landlord extends Server {
   }
 
   public void compileStats(){
-    MyTime hi = new MyTime(23,59,59);
-    MyTime lo = new MyTime(0,0,0);
+    MyTime lo = new MyTime(23,59,59);
+    MyTime hi = new MyTime(0,0,0);
     
     // This code is faulty!
     for (MyTime t : stats) {
-      if (t.compareTo(lo) > 0)
+      System.out.println(t);
+      if (t.compareTo(lo) < 0)
         lo = t;
-      if (t.compareTo(hi) < 0)
+      if (t.compareTo(hi) > 0)
         hi = t;
     }
     

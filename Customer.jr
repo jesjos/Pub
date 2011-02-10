@@ -41,10 +41,11 @@ public class Customer {
   }
 
   process mainLoop {
-
+    MyTime t; 
     while (numberOfDrinks < Constants.MAX_DRINKS) {
-
-      drink = orderQueue(myOrder, clock.getTime());
+      t = clock.getTime();
+      System.out.println("In customer: get time: " + t);
+      drink = orderQueue(myOrder, t);
       if (drink instanceof Landlord.Refusal) {
         System.out.println("------------------>> I was refused!!!! I'll return later with an AK-47 and blast the place."  + drink);
         break;

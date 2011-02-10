@@ -4,7 +4,7 @@ import java.util.HashMap;
 public class Barmaid extends Server {
  
   public Barmaid (cap Resource (Constants.Order, MyTime) orderQueue,                   
-                  cap void ()           closingTime,
+                  cap void () closingTime,
                   Clock clock,
                   cap void (MyTime) statistics,
                   ServingArea sa
@@ -22,6 +22,7 @@ public class Barmaid extends Server {
           case CAPPU :  drink = getCappu(); break;
           case CHOCO :  drink = getChoco(); break;
         }
+        System.out.println("Difference: ---------> " + new MyTime(clock.getTime().compareTo(orderStartTime)));
         send statistics(new MyTime(clock.getTime().compareTo(orderStartTime)));
         return drink;
       }
