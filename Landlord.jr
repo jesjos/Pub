@@ -8,6 +8,7 @@ public class Landlord extends Server {
   private op void handshakeQueue (Customer);
   private ArrayList<Customer> customers = new ArrayList<Customer>();
   private ArrayList<MyTime> stats = new ArrayList<MyTime>();
+  private int totalCustomers = 0;
 
   public op void pubIsEmpty ();
   public op void assistantDone();
@@ -44,8 +45,7 @@ public class Landlord extends Server {
             case CAPPU :  drink = getCappu(); break;
             case CHOCO :  drink = getChoco(); break;
           }
-          System.out.println("Stop: " + clock.getTime());
-          System.out.println("Difference: ---------> "+ new MyTime(clock.getTime().compareTo(orderStartTime)));
+          System.out.println("Order: " + order + "Difference: ---------> "+ new MyTime(clock.getTime().compareTo(orderStartTime)));
           send statistics(new MyTime(clock.getTime().compareTo(orderStartTime)));
           return drink;
         }
@@ -62,6 +62,7 @@ public class Landlord extends Server {
         }
         else {
           customers.add(customer);
+          totalCustomers++;
         }
       }
       [] void statistics (MyTime orderTime) {
@@ -93,22 +94,26 @@ public class Landlord extends Server {
   public void compileStats(){
     MyTime lo = new MyTime(23,59,59);
     MyTime hi = new MyTime(0,0,0);
-    
+    int sum = 0;
+
     // This code is faulty!
     for (MyTime t : stats) {
-      System.out.println(t);
+      sum += t.getValue();
       if (t.compareTo(lo) < 0)
         lo = t;
       if (t.compareTo(hi) > 0)
         hi = t;
     }
+
+    int average = sum/stats.size();
     
     System.out.println("Glasses now: " + sa.howManyGlassesLeft() + " should be: " + Constants.GLASSES);
     System.out.println("Cups now: " + sa.howManyCupsLeft() + " should be: " + Constants.CUPS);
     
     System.out.println("Highest time: " + hi);
     System.out.println("Lowest time: " + lo);
-    
+    System.out.println("Average time: " + new MyTime(average));
+    System.out.println("Total number of customers served: " + totalCustomers);
   }
   public static class Refusal implements Resource {
 

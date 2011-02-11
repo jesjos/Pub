@@ -1,0 +1,11 @@
+public class Test {
+
+  public static void main (){
+    Clock c = new Clock();
+    op void apa();
+    double a = System.currentTimeMillis();
+    send c.setAlarm(apa, new MyTime(0,1,0));
+    receive apa;
+    System.out.println(System.currentTimeMillis() - a);
+  }
+}
