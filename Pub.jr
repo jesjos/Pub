@@ -51,7 +51,8 @@ public class Pub {
   process addCustomer {
     op void alarm();
     int randomTable;
-    while (!closed) {
+    boolean one = true;
+    while (one) {
       randomTable = (int) (Math.random()*Constants.N_OF_TABLES);
       send print("Generated customer with favourite table " + randomTable);
       new Customer(orderQueue, handshakeQueue, tables.get(randomTable), clock);
@@ -60,6 +61,7 @@ public class Pub {
       receive alarm();
       
       send print("Added a customer");
+      one = false;
     }
   }
   

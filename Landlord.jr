@@ -35,7 +35,7 @@ public class Landlord extends Server {
     Resource drink = null;
 
     while (customersLeft) {
-      inni Resource orderQueue(Constants.Order order, MyTime orderStartTime) {
+      inni Resource orderQueue(Constants.Order order, MyTime orderStartTime) by 0{
         if (closed) {
           return new Refusal();
         } else {
@@ -50,7 +50,7 @@ public class Landlord extends Server {
           return drink;
         }
       }
-      [] void handshakeQueue (Customer customer) {
+      [] void handshakeQueue (Customer customer) by 1{
         if(customers.contains(customer)) {
           customers.remove(customer);
           System.out.println("Someone left, now " + customers.size() + " customers left.");
@@ -65,7 +65,7 @@ public class Landlord extends Server {
           totalCustomers++;
         }
       }
-      [] void statistics (MyTime orderTime) {
+      [] void statistics (MyTime orderTime) by 2 {
         stats.add(orderTime);
       }
     } // -- end while
