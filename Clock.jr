@@ -37,7 +37,7 @@ public class Clock {
         currentTime.increment();
       }
       [] MyTime getTime() {
-        return currentTime;
+        return ((MyTime)currentTime.clone());
       }
       [] void setAlarm(cap void() ch, MyTime t) {
         MyTime at = ((MyTime)currentTime.clone()).add(t);

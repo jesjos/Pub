@@ -49,6 +49,7 @@ public class Server {
     clock.setAlarm(alarm , Constants.GETMILK);
     receive alarm();
     clock.setAlarm(alarm , Constants.MIXCOFFEE);
+    receive alarm();
     System.out.println(this.getClass().getName() + "Is pouring a cappucino");
     // Pour the cappucino
     send sa.milk();
@@ -66,6 +67,7 @@ public class Server {
     clock.setAlarm(alarm , Constants.GETMILK);
     receive alarm();
     clock.setAlarm(alarm , Constants.MIXCHOCO);
+    receive alarm();
     System.out.println(this.getClass().getName() + "Is pouring a choco");
     // Pour the choco
     send sa.milk();
