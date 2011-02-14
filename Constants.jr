@@ -11,12 +11,12 @@ public class Constants {
   public static final MyTime REST = new MyTime(0,10,0);
   
   // Customers
-  public static final MyTime CUSTOMER_DROPINTIME = new MyTime(0,2,0);
+  public static final MyTime CUSTOMER_DROPINTIME = new MyTime(0,1,0);
   public static final int MAX_DRINKS = 5;
   public static final MyTime DRINK_TIME = new MyTime(0,10,0);
   
   // Tables
-  public static final int N_OF_TABLES = 2;
+  public static final int N_OF_TABLES = 8;
   public static final int TABLE_SPACE = 10;
   
   // Resources

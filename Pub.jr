@@ -68,7 +68,7 @@ public class Pub {
     op void isClosingTime();
     clock.setAlarmEndTime(isClosingTime);
     receive isClosingTime();
-  //  closed = true;
+    closed = true;
     System.out.println("------------------------------------------> Closing Time");
     
     for (int i = 0; i< Constants.NUMBER_OF_STAFF; i++)
