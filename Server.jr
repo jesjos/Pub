@@ -27,49 +27,69 @@ public class Server {
   }
 
   protected ServingArea.Glass getBeer() {
-    System.out.println(this.getClass().getName() + "Servicing order");
-    ServingArea.Glass glass = sa.getGlass();
+    ServingArea.Glass glass;
+    System.out.println(this.getClass().getName() + " is servicing order");
+    
+    glass = sa.getGlass();
     receive sa.tap();
+    
+    // Wait for beer to pour
     clock.setAlarm(alarm , Constants.POURBEER);
     receive alarm();
-    System.out.println(this.getClass().getName() + "Is pouring a beer");
-    // Pour the beer
+    
     send sa.tap();
     glasses++;
     return glass;
-
   }
   protected ServingArea.Cup getCappu() {
+    ServingArea.Cup cup;
     System.out.println(this.getClass().getName() + "Servicing order");
-    ServingArea.Cup cup = sa.getCup();
+    
+    cup = sa.getCup();
+    
+    // Get coffee and wait
     receive sa.coffee();
     clock.setAlarm(alarm , Constants.GETCOFFEE);
     receive alarm();
+    
+    // Get milk and wait
     receive sa.milk();
     clock.setAlarm(alarm , Constants.GETMILK);
     receive alarm();
+    
+    // Mix coffee
+    System.out.println(this.getClass().getName() + "Is pouring a cappucino");
     clock.setAlarm(alarm , Constants.MIXCOFFEE);
     receive alarm();
-    System.out.println(this.getClass().getName() + "Is pouring a cappucino");
-    // Pour the cappucino
+    
+    // Release resources
     send sa.milk();
     send sa.coffee();
     cups++;
     return cup;
   }
   protected ServingArea.Cup getChoco() {
+    ServingArea.Cup cup;
     System.out.println(this.getClass().getName() + "Servicing order");
-    ServingArea.Cup cup = sa.getCup();
+    
+    cup = sa.getCup();
+    
+    // Get chocolate and wait
     receive sa.choco();
     clock.setAlarm(alarm , Constants.GETCHOCOPOWDER);
     receive alarm();
+    
+    // Get milk and wait
     receive sa.milk();
     clock.setAlarm(alarm , Constants.GETMILK);
     receive alarm();
+    
+    // Mix hot chocolate and wait
+    System.out.println(this.getClass().getName() + "Is pouring a choco");
     clock.setAlarm(alarm , Constants.MIXCHOCO);
     receive alarm();
-    System.out.println(this.getClass().getName() + "Is pouring a choco");
-    // Pour the choco
+    
+    // Release resources
     send sa.milk();
     send sa.choco();
     cups++;
