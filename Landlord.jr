@@ -36,10 +36,10 @@ public class Landlord extends Server {
     Resource drink = null;
 
     while (!customers.isEmpty() || !closed) {
-      inni void closingTime() {
+      inni void closingTime() by 0 {
               closed = true;
       }
-      [] void lastCall() by 1{
+      [] void lastCall() by 1 {
         for (Customer customer: customers)
           send customer.lastCall();
         System.out.println("-----------------------------> Sent last call.");

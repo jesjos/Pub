@@ -1,13 +1,13 @@
 public class Test {
-
+  
+  public Test () {
+    
+  }
+  
+  process apa {
+  }
+  
   public static void main (String[] args){
-    Clock c = new Clock(20, new MyTime(8,8,8));
-    op void apa();
-    double a = System.currentTimeMillis();
-    MyTime t = new MyTime(c.getTime().getValue());
-    send c.setAlarm(apa, new MyTime(0,1,0));
-    receive apa();
-    System.out.println(System.currentTimeMillis() - a);
-    System.out.println(new MyTime(c.getTime().compareTo(t)));
+    Test b = new Test();
   }
 }
