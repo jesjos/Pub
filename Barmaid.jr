@@ -14,9 +14,10 @@ public class Barmaid extends Server {
   
   private process serve {
     Resource drink = null;
+    boolean closed = false;
     
     while (!closed) {
-      inni Resource orderQueue(Constants.Order order, MyTime orderStartTime) by 1 {
+      inni Resource orderQueue(Constants.Order order, MyTime orderStartTime) st closingTime.size() == 0 {
         switch (order) {
           case BEER :   drink = getBeer(); break;
           case CAPPU :  drink = getCappu(); break;
@@ -33,5 +34,4 @@ public class Barmaid extends Server {
     } // -- end while
     System.out.println("Barmaid served: " + glasses + " glasses and " + cups + " cups");
   }
-  
 }

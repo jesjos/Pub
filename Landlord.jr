@@ -32,16 +32,17 @@ public class Landlord extends Server {
 
   private process serve {
     boolean customersLeft = true;
+    boolean closed = false;
     Resource drink = null;
 
     while (!customers.isEmpty() || !closed) {
-      inni void closingTime() {
-        closed = true;
-      }
-      [] void lastCall(){
+      // inni void closingTime() {
+      //         // closed = true;
+      //       }
+      inni void lastCall(){
         for (Customer customer: customers)
           send customer.lastCall();
-        System.out.println("Sent last call.");
+        System.out.println("-----------------------------> Sent last call.");
       }
       
       [] Resource orderQueue(Constants.Order order, MyTime orderStartTime) {
@@ -54,7 +55,6 @@ public class Landlord extends Server {
             case CAPPU :  drink = getCappu(); break;
             case CHOCO :  drink = getChoco(); break;
           }
-          System.out.println("Order: " + order + "Difference: ---------> "+ new MyTime(clock.getTime().compareTo(orderStartTime)));
           send statistics(new MyTime(clock.getTime().compareTo(orderStartTime)));
           return drink;
         }
@@ -72,6 +72,12 @@ public class Landlord extends Server {
       [] void statistics (MyTime orderTime) {
         stats.add(orderTime);
       }
+      
+      if (closingTime.size() != 0) {
+        receive closingTime();
+        closed = true;
+      }
+      
     } // -- end while
     
     System.out.println("Sending pub is empty");
@@ -89,7 +95,6 @@ public class Landlord extends Server {
     MyTime hi = new MyTime(0,0,0);
     int sum = 0;
 
-    // This code is faulty!
     for (MyTime t : stats) {
       sum += t.getValue();
       if (t.compareTo(lo) < 0)
@@ -108,6 +113,7 @@ public class Landlord extends Server {
     System.out.println("Average time: " + new MyTime(average));
     System.out.println("Total number of customers served: " + totalCustomers);
   }
+  
   public static class Refusal implements Resource {
 
   }

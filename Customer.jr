@@ -55,7 +55,9 @@ public class Customer {
       // Drink
       send clock.setAlarm(alarm, Constants.DRINK_TIME);
       inni void alarm();
-      [] void lastCall() st (myOrder == Constants.Order.BEER);
+      [] void lastCall() st (myOrder == Constants.Order.BEER) {
+        System.out.println("I received a last call message.");
+      }
       
       // Place drink on table
       if (drink instanceof ServingArea.Cup) {

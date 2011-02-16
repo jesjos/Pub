@@ -1,11 +1,10 @@
 import edu.ucdavis.jr.*;
 
-public class Server { 
+public abstract class Server { 
   protected cap Resource (Constants.Order, MyTime) orderQueue;
   protected cap void () closingTime;
   protected cap void (MyTime) statistics;
   protected op void alarm ();
-  protected boolean closed;
   protected Clock clock;
   protected ServingArea sa;
   protected int cups = 0;
@@ -23,7 +22,6 @@ public class Server {
     this.clock = clock;
     this.statistics = statistics;
     this.sa = sa;
-    closed = false;
   }
 
   protected ServingArea.Glass getBeer() {
@@ -94,5 +92,10 @@ public class Server {
     send sa.choco();
     cups++;
     return cup;    
+  }
+  
+  // This is a dummy method that is overridden by extending classes
+  protected void nap(MyTime t) {
+    
   }
 }
