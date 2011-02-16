@@ -36,16 +36,16 @@ public class Landlord extends Server {
     Resource drink = null;
 
     while (!customers.isEmpty() || !closed) {
-      inni void closingTime() by 0 {
+      inni void closingTime() by 1{
               closed = true;
       }
-      [] void lastCall() by 1 {
+      [] void lastCall() by 2{
         for (Customer customer: customers)
           send customer.lastCall();
         System.out.println("-----------------------------> Sent last call.");
       }
       
-      [] Resource orderQueue(Constants.Order order, MyTime orderStartTime) {
+      [] Resource orderQueue(Constants.Order order, MyTime orderStartTime) by 3 {
         if (closed) {
           return new Refusal();
         } else {
@@ -59,7 +59,7 @@ public class Landlord extends Server {
           return drink;
         }
       }
-      [] void handshakeQueue (Customer customer) {
+      [] void handshakeQueue (Customer customer) by 4{
         if(customers.contains(customer)) {
           customers.remove(customer);
           System.out.println("Someone left, now " + customers.size() + " customers left.");
@@ -69,7 +69,7 @@ public class Landlord extends Server {
           totalCustomers++;
         }
       }
-      [] void statistics (MyTime orderTime) {
+      [] void statistics (MyTime orderTime) by 5{
         stats.add(orderTime);
       }
       

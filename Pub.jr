@@ -23,7 +23,7 @@ public class Pub {
   
   private Clock clock;
   private Landlord landlord;
-  
+
   ArrayList<Table> tables = new ArrayList<Table>();
   
   public Pub () {
