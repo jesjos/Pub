@@ -13,8 +13,6 @@ public class Assistant {
   private cap void () close;
   private op void alarm ();
   
-  private boolean lastRound;
-  
   private cap void () pubIsEmpty;
   private cap void () assistantDone;
   
@@ -24,7 +22,6 @@ public class Assistant {
     this.sa = sa;
     this.close = close;
     this.assistantDone = assistantDone;
-    lastRound = false;
     
     this.pubIsEmpty = pubIsEmpty;
   }
@@ -32,11 +29,19 @@ public class Assistant {
   process work {
     int nTables = Constants.N_OF_TABLES;
     int i = 0;
-    while (!lastRound) {
+    while (true) {
       cleanTable(i);
       i = (i + 1) % Constants.N_OF_TABLES;
       send clock.setAlarm(alarm, Constants.REST);
       receive alarm();
+      
+      inni void pubIsEmpty() {
+        break;
+      }
+      [] else {
+        ;
+      }
+      
     }
     
     doLastRounds();
@@ -98,11 +103,6 @@ public class Assistant {
     
     System.out.println("After table clean: size Glasses " + glasses.size() + " size Cups " + cups.size());
     
-  }
-  
-  process checkIfPubIsEmpty {
-    receive pubIsEmpty();
-    lastRound = true;
   }
   
 }

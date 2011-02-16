@@ -17,7 +17,7 @@ public class Barmaid extends Server {
     boolean closed = false;
     
     while (!closed) {
-      inni Resource orderQueue(Constants.Order order, MyTime orderStartTime) by 1 {
+      inni Resource orderQueue(Constants.Order order, MyTime orderStartTime) st closingTime.length() == 0 {
         switch (order) {
           case BEER :   drink = getBeer(); break;
           case CAPPU :  drink = getCappu(); break;
@@ -27,10 +27,11 @@ public class Barmaid extends Server {
         send statistics(new MyTime(clock.getTime().compareTo(orderStartTime)));
         return drink;
       }
-      [] void closingTime() by 0 {
+      [] void closingTime() {
         System.out.println("Barmaid acknowledges closure.");
 			  closed = true;
 			}
+			
     } // -- end while
     System.out.println("Barmaid served: " + glasses + " glasses and " + cups + " cups");
   }
