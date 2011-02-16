@@ -36,15 +36,6 @@ public class Landlord extends Server {
     Resource drink = null;
 
     while (!customers.isEmpty() || !closed) {
-      // inni void closingTime() by 1{
-      //         closed = true;
-      // }
-      // [] void lastCall() by 2{  
-      //   for (Customer customer: customers)
-      //     send customer.lastCall();
-      //   System.out.println("-----------------------------> Sent last call.");
-      // }
-      // 
       inni Resource orderQueue(Constants.Order order, MyTime orderStartTime) {
         if (closed) {
           return new Refusal();
@@ -78,7 +69,7 @@ public class Landlord extends Server {
         for (Customer c : customers)
           send c.lastCall();
       }
-      if (closingTime.length() > 0) {
+      if (!closed && closingTime.length() > 0) {
         receive closingTime();
         closed = true;
       }
