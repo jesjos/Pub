@@ -19,6 +19,7 @@ public class Pub {
   private cap void (Customer) handshakeQueue;
   
   public op void print(String);
+  private op void seaseCustomerAdd();
   
   private Clock clock;
   private Landlord landlord;
@@ -26,7 +27,7 @@ public class Pub {
   
   ArrayList<Table> tables = new ArrayList<Table>();
   
-  private boolean closed = false;
+  private 
   
   public Pub () {
     initialize();
@@ -50,25 +51,32 @@ public class Pub {
   }
   
   process addCustomer {
-    op void alarm();
-    int randomTable;
-    while (!closed) {
-      randomTable = (int) (Math.random()*Constants.N_OF_TABLES);
-      send print("Generated customer with favourite table " + randomTable);
-      new Customer(orderQueue, handshakeQueue, tables.get(randomTable), clock);
-      
-      send clock.setAlarm(alarm, Constants.CUSTOMER_DROPINTIME);
-      receive alarm();
-      
-      send print("Added a customer");
-    }
+  	op void alarm();
+  	int randomTable;
+  	boolean closed = false;
+
+  	while (!closed) {
+  		inni seaseCustomerAdd(){
+  			closed = true;
+  		}
+  		else {
+  			randomTable = (int) (Math.random()*Constants.N_OF_TABLES);
+  			send print("Generated customer with favourite table " + randomTable);
+  			new Customer(orderQueue, handshakeQueue, tables.get(randomTable), clock);
+
+  			send clock.setAlarm(alarm, Constants.CUSTOMER_DROPINTIME);
+  			receive alarm();
+
+  			send print("Added a customer");
+  		}
+  	}
   }
   
   process closingTime {
     op void isClosingTime();
     clock.setAlarmEndTime(isClosingTime);
     receive isClosingTime();
-    closed = true;
+    send seaseCustomerAdd();
     System.out.println("------------------------------------------> Closing Time");
     
     for (int i = 0; i< Constants.NUMBER_OF_STAFF; i++)

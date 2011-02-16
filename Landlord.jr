@@ -39,7 +39,7 @@ public class Landlord extends Server {
       inni void closingTime() {
               closed = true;
       }
-      [] void lastCall() {
+      [] void lastCall() by 1{
         for (Customer customer: customers)
           send customer.lastCall();
         System.out.println("-----------------------------> Sent last call.");
