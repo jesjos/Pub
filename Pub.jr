@@ -19,15 +19,12 @@ public class Pub {
   private cap void (Customer) handshakeQueue;
   
   public op void print(String);
-  private op void seaseCustomerAdd();
+  private op void ceaseCustomerAdd();
   
   private Clock clock;
   private Landlord landlord;
-  //private op void closed();
-  
+
   ArrayList<Table> tables = new ArrayList<Table>();
-  
-  private 
   
   public Pub () {
     initialize();
@@ -56,10 +53,10 @@ public class Pub {
   	boolean closed = false;
 
   	while (!closed) {
-  		inni seaseCustomerAdd(){
+  		inni void ceaseCustomerAdd(){
   			closed = true;
   		}
-  		else {
+  		[] else {
   			randomTable = (int) (Math.random()*Constants.N_OF_TABLES);
   			send print("Generated customer with favourite table " + randomTable);
   			new Customer(orderQueue, handshakeQueue, tables.get(randomTable), clock);
@@ -76,7 +73,7 @@ public class Pub {
     op void isClosingTime();
     clock.setAlarmEndTime(isClosingTime);
     receive isClosingTime();
-    send seaseCustomerAdd();
+    send ceaseCustomerAdd();
     System.out.println("------------------------------------------> Closing Time");
     
     for (int i = 0; i< Constants.NUMBER_OF_STAFF; i++)
