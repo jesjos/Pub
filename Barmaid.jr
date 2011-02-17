@@ -28,9 +28,9 @@ public class Barmaid extends Server {
         return drink;
       }
       [] void closingTime() {
-        System.out.println("Barmaid acknowledges closure.");
+        System.out.println("\n----------------------------------> Barmaid acknowledges closure.");
 			  closed = true;
-			}
+		}
 			
     } // -- end while
     System.out.println("Barmaid served: " + glasses + " glasses and " + cups + " cups");

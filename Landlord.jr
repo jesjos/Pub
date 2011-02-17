@@ -34,51 +34,50 @@ public class Landlord extends Server {
     boolean customersLeft = true;
     boolean closed = false;
     Resource drink = null;
+    while (!customers.isEmpty() || !closed) {  	
+    	inni void lastCall() {
+    		System.out.println("\n------------------------------> LandLord acknowledges lastCall.");
+    		for (Customer c : customers)
+    			send c.lastCall();
+    	}
+    	[] void closingTime() {
+    		System.out.println("\n------------------------------> Landlord acknowledges closure");
+    		closed = true;
+    	}
+    	[] Resource orderQueue(Constants.Order order, MyTime orderStartTime) st closingTime.length() == 0 {
 
-    while (!customers.isEmpty() || !closed) {
-      inni Resource orderQueue(Constants.Order order, MyTime orderStartTime) {
-        if (closed) {
-          return new Refusal();
-        } else {
-          System.out.println("Start: " + clock.getTime());
-          switch (order) {
-            case BEER  :  drink = getBeer(); break;
-            case CAPPU :  drink = getCappu(); break;
-            case CHOCO :  drink = getChoco(); break;
-          }
-          send statistics(new MyTime(clock.getTime().compareTo(orderStartTime)));
-          return drink;
-        }
-      }
-      [] void handshakeQueue (Customer customer) {
-        if(customers.contains(customer)) {
-          customers.remove(customer);
-          System.out.println("Someone left, now " + customers.size() + " customers left.");
-        }
-        else {
-          customers.add(customer);
-          totalCustomers++;
-        }
-      }
-      [] void statistics (MyTime orderTime) {
-        stats.add(orderTime);
-      }
-      
-      if (lastCall.length() > 0) {
-        receive lastCall();
-        for (Customer c : customers)
-          send c.lastCall();
-      }
-      if (!closed && closingTime.length() > 0) {
-        receive closingTime();
-        closed = true;
-      }
-      
+    		if (closed) {
+    			return new Refusal();
+    		} else {
+    			System.out.println("Start: " + clock.getTime());
+    			switch (order) {
+    			case BEER  :  drink = getBeer(); break;
+    			case CAPPU :  drink = getCappu(); break;
+    			case CHOCO :  drink = getChoco(); break;
+    			}
+    			send statistics(new MyTime(clock.getTime().compareTo(orderStartTime)));
+    			return drink;
+    		}
+    	}
+    	[] void handshakeQueue (Customer customer) st closingTime.length() == 0 {
+    		if(customers.contains(customer)) {
+    			customers.remove(customer);
+    			System.out.println("Someone left, now " + customers.size() + " customers left.");
+    		}
+    		else {
+    			customers.add(customer);
+    			totalCustomers++;
+    		}
+    	}
+    	[] void statistics (MyTime orderTime) st closingTime.length() == 0 {
+    		stats.add(orderTime);
+    	}   
+
     } // -- end while
-    
+
     System.out.println("Sending pub is empty");
     send pubIsEmpty();
-    
+
     receive assistantDone();
     // Compile stats
     clock.shutdown();

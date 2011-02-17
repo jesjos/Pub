@@ -10,17 +10,15 @@ public class Assistant {
   
   private Clock clock;
   private ServingArea sa;
-  private cap void () close;
   private op void alarm ();
   
   private cap void () pubIsEmpty;
   private cap void () assistantDone;
   
-  public Assistant(Collection<Table> tables, Clock clock, ServingArea sa, cap void () close, cap void () pubIsEmpty, cap void () assistantDone) {
+  public Assistant(Collection<Table> tables, Clock clock, ServingArea sa, cap void () pubIsEmpty, cap void () assistantDone) {
     this.tables = new ArrayList<Table>(tables);
     this.clock = clock;
     this.sa = sa;
-    this.close = close;
     this.assistantDone = assistantDone;
     
     this.pubIsEmpty = pubIsEmpty;
@@ -45,7 +43,7 @@ public class Assistant {
     }
     
     doLastRounds();
-    System.out.println("Assistant: Fuck this - I go home.");
+    System.out.println("Assistant: Finished, I go home.");
     send assistantDone();
   }
   

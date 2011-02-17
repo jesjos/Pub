@@ -13,7 +13,8 @@ import java.util.HashMap;
 public class Pub {
   
   private op void lastCall ();
-  private op void close();
+  private op void closeL();
+  private op void closeB();
   private op Resource orderQueue (Constants.Order, MyTime);
   private op void statistics (MyTime);
   private cap void (Customer) handshakeQueue;
@@ -40,9 +41,9 @@ public class Pub {
     
     ServingArea sa = new ServingArea(clock);
    
-    landlord = new Landlord(lastCall, orderQueue, close, clock, statistics, sa);
-    new Barmaid(orderQueue, close, clock, statistics, sa);
-    new Assistant(tables, clock, sa, close, landlord.pubIsEmpty, landlord.assistantDone);
+    landlord = new Landlord(lastCall, orderQueue, closeL, clock, statistics, sa);
+    new Barmaid(orderQueue, closeB, clock, statistics, sa);
+    new Assistant(tables, clock, sa,landlord.pubIsEmpty, landlord.assistantDone);
     handshakeQueue = landlord.getHandShakeQueue();
 
   }
@@ -75,9 +76,9 @@ public class Pub {
     receive isClosingTime();
     send ceaseCustomerAdd();
     System.out.println("------------------------------------------> Closing Time");
+      send closeL();
+      send closeB();
     
-    for (int i = 0; i< Constants.NUMBER_OF_STAFF; i++)
-      send close();
   }
   
   process printer {
