@@ -15,7 +15,7 @@ public abstract class Server {
 
   public Server (
     cap Resource (Constants.Order, MyTime) orderQueue, 
-    cap void ()           closingTime,
+    cap void() closingTime,
     Clock clock,
     cap void (MyTime) statistics,
     ServingArea sa

@@ -42,25 +42,6 @@ public class ServingArea {
     send tap();
   }
 
-  public cap void ()[] getSingleResources() {
-    return singleResources;
-  }
-
-  public cap Glass () refGlass() {
-    cap Glass () ref = getGlass;
-    return ref;
-  }
-
-  public cap Cup () refCup() {
-    cap Cup () ref = getCup;
-    return ref;
-  }
-
-  public cap void (Glass) getReplaceGlass() {
-    cap void (Glass) ref = replaceGlass;
-    return ref;
-  }
-
   private process serveGlasses {
     op void alarm ();
     while (true) {
@@ -118,14 +99,6 @@ public class ServingArea {
   }
 
   public static class Cup implements Resource {
-
-  }
-
-  public static class Milk implements Resource {
-
-  }
-
-  public static class Chocolate implements Resource {
 
   }
 

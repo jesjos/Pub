@@ -17,6 +17,8 @@ Customers are created already knowing which drink they prefer and which is their
 
 All constants, e.g. waiting times, maximum number of drinks and so on, can be specified in the Constants class.
 
+The clock class has been modified to clone the current time in the getTime()-method.
+
 Message passing structure:
 ##############################
 
@@ -37,6 +39,7 @@ Landlord:
     Pub closed from Pub.
     Orders from customers, via order queue
     Handshakes from customers
+    Number of glasses and cups in the cupboard from the serving area
 
 Assistant:
   Sends:
@@ -59,4 +62,20 @@ Customers:
   Receive:
     Glasses, cups or refusals from the order queue
     Last call message from Landlord
-    
+
+ServingArea:
+  Sends:
+    Glasses and cups to landlord and barmaid
+    Number of glasses and cups in the cupboard to the landlord
+    Tap, milk, coffee, chocolate powder to landlord and barmaid
+  Receives:
+    Glasses and cups from the assistant
+    Closing message from the landlord
+
+
+Deadlock
+##############################
+
+Deadlock situations won't occur between the barmaid and the landlord.
+There could perhaps be deadlock if the servers grab the tap or other single critical resources in random order before taking a cup or a glass. In that case we could have a situation where one server has the chocolate and another has the milk. But if they always wait to have the milk before they grab the chocolate, this isn't a problem.
+Deadlock in competition for glasses or cups won't occur. Since servers grab cups or glasses before any other resource, once a server has grabbed a glass or a cup she can always complete her order since all other resources can only be held by other servers for a finite length of time.

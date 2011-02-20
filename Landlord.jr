@@ -4,6 +4,9 @@ import java.util.HashMap;
 
 public class Landlord extends Server {
 
+  private static final String lastCallMessage = "------------------------------> LandLord acknowledges lastCall.";
+  private static final String closingMessage = "------------------------------> Landlord acknowledges closure.";
+
   private cap void () lastCall;
   private op void handshakeQueue (Customer);
   private ArrayList<Customer> customers = new ArrayList<Customer>();
@@ -21,7 +24,6 @@ public class Landlord extends Server {
     cap void (MyTime) statistics,
     ServingArea sa
   ) {
-
     super(orderQueue, closingTime, clock,statistics, sa);
     this.lastCall = lastCall;
   }
@@ -29,19 +31,25 @@ public class Landlord extends Server {
   public cap void (Customer) getHandShakeQueue() {
     return handshakeQueue;
   }		
-
+  
+  /* st-clauses are needed in the inni statement to make sure that the Landlord acknowledges 
+   * closingTime and lastCall message as they come in.
+   * Without the st:s, the landlord would probably keep servicing orders, since that queue generally
+   * has a large backlog of messages.
+   */
   private process serve {
     boolean customersLeft = true;
     boolean closed = false;
     Resource drink = null;
+    
     while (!customers.isEmpty() || !closed) {  	
     	inni void lastCall() {
-    		System.out.println("\n------------------------------> LandLord acknowledges lastCall.");
+    		System.out.println(lastCallMessage);
     		for (Customer c : customers)
     			send c.lastCall();
     	}
     	[] void closingTime() {
-    		System.out.println("\n------------------------------> Landlord acknowledges closure.");
+    		System.out.println(closingMessage);
     		closed = true;
     	}
     	[] Resource orderQueue(Constants.Order order, MyTime orderStartTime) st closingTime.length() == 0 {
@@ -100,6 +108,7 @@ public class Landlord extends Server {
 
     int average = sum/stats.size();
     
+    System.out.println("#####################################\n\nFinal stats:\n");
     System.out.println("Glasses now: " + sa.howManyGlassesLeft() + " should be: " + Constants.GLASSES);
     System.out.println("Cups now: " + sa.howManyCupsLeft() + " should be: " + Constants.CUPS);
     
