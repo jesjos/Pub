@@ -46,16 +46,17 @@ public class Customer {
       t = new MyTime(clock.getTime().getValue());
       drink = orderQueue(myOrder, t);
       if (drink instanceof Landlord.Refusal) {
-        System.out.println("------------------>> I was refused!!!! I'll return later with an AK-47 and blast the place.");
+        System.out.println("Customer says: I was refused!!!! I'll return later with an AK-47 and blast the place.");
         break;
       }
       numberOfDrinks++;
-      System.out.println("I received a drink!");
+      
       // Go to table
       // Drink
       send clock.setAlarm(alarm, Constants.DRINK_TIME);
       inni void alarm();
       [] void lastCall() st (myOrder == Constants.Order.BEER) {
+        numberOfDrinks = 4;
         System.out.println("I received a last call message.");
       }
       
@@ -67,8 +68,6 @@ public class Customer {
       }
       
       drink = null;
-      System.out.println("I put down my drink");
-      // Repeat
     }
     System.out.println("Customer going home.");
     send handShake(this);

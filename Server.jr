@@ -1,5 +1,8 @@
 import edu.ucdavis.jr.*;
 
+/**
+ * Super class that collects shared methods and varibables of a server in a Pub.
+ */
 public abstract class Server { 
   protected cap Resource (Constants.Order, MyTime) orderQueue;
   protected cap void () closingTime;
@@ -39,6 +42,7 @@ public abstract class Server {
     glasses++;
     return glass;
   }
+  
   protected ServingArea.Cup getCappu() {
     ServingArea.Cup cup;
     System.out.println(this.getClass().getName() + "Servicing order");
@@ -66,6 +70,7 @@ public abstract class Server {
     cups++;
     return cup;
   }
+  
   protected ServingArea.Cup getChoco() {
     ServingArea.Cup cup;
     System.out.println(this.getClass().getName() + "Servicing order");
@@ -92,10 +97,5 @@ public abstract class Server {
     send sa.choco();
     cups++;
     return cup;    
-  }
-  
-  // This is a dummy method that is overridden by extending classes
-  protected void nap(MyTime t) {
-    
   }
 }

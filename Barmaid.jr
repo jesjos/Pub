@@ -12,6 +12,7 @@ public class Barmaid extends Server {
     super(orderQueue, closingTime, clock, statistics, sa);
   }
   
+  /* Serves orders and sends statistics */
   private process serve {
     Resource drink = null;
     boolean closed = false;
@@ -23,7 +24,6 @@ public class Barmaid extends Server {
           case CAPPU :  drink = getCappu(); break;
           case CHOCO :  drink = getChoco(); break;
         }
-        System.out.println("Difference: ---------> " + new MyTime(clock.getTime().compareTo(orderStartTime)));
         send statistics(new MyTime(clock.getTime().compareTo(orderStartTime)));
         return drink;
       }
@@ -33,6 +33,5 @@ public class Barmaid extends Server {
 		}
 			
     } // -- end while
-    System.out.println("Barmaid served: " + glasses + " glasses and " + cups + " cups");
   }
 }

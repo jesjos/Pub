@@ -1,7 +1,1 @@
 This is a pub simulator written as part of assignment 2 in the Concurrent Programming Course TDA381 at Chalmers University of Technology.
-
-Questions:
-
-are we allowed to have several processes in one object?
-
-are we allowed to pass object-pointers?

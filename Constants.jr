@@ -35,17 +35,12 @@ public class Constants {
   public static final MyTime GETGLASS = new MyTime(0,0,5);
   public static final MyTime GETCUP = new MyTime(0,0,5);
   
-  // Resource id:s
-  public static final int MILK = 0;
-  public static final int COFFEE = 1;
-  public static final int TAP = 2;
-  public static final int CHOCO = 3;
-  
   // Pub
   public static final int NUMBER_OF_STAFF = 3;
   
   public enum Order {
     BEER, CAPPU, CHOCO;
+    // This method makes it easier to generate random orders
     public static Order getOrder (int i) {
       return values()[i];
     }

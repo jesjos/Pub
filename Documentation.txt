@@ -1,0 +1,62 @@
+Pub Assigment, version 1
+Jesper Josefsson, Anmar Khazal
+##############################
+
+General comments:
+##############################
+
+To DRY up the code, Landlord and Barmaid inherit some shared methods and variables from the Server class.
+
+Resource is an empty interface that different kind of resources implement. Resources can be glasses or cups or Refusals.
+
+Glasses and cups are implemented in the ServingArea class, while Refusals are implemented in the landlord (since he is the one who sends them): 
+
+The content of an order is represented by an enum class in the class Constants.
+
+Customers are created already knowing which drink they prefer and which is their favourite table.
+
+All constants, e.g. waiting times, maximum number of drinks and so on, can be specified in the Constants class.
+
+Message passing structure:
+##############################
+
+A process in the pub receives the closing time message from the clock and alerts other recipients via individual channels.
+
+Glasses and cups are placed in and removed from the Cupboard via channels in the ServingArea.
+
+Pub:
+  Sends:
+    Closing time to landlord and barmaid and customer generation.
+
+Landlord:
+  Sends:
+    Pub is empty to Assistant
+    Last call to all Customers
+    Closing message to the serving area when the assistant is done
+  Receives:
+    Pub closed from Pub.
+    Orders from customers, via order queue
+    Handshakes from customers
+
+Assistant:
+  Sends:
+    Assistant done to Landlord
+  Receives:
+    Pub empty from Landlord
+    Glasses and cups from tables
+
+Tables:
+  Send:
+    Glasses and cups to assistant
+  Receive:
+    Glasses and cups from customers
+    
+Customers:
+  Send:
+    Orders to the order queue
+    Handshakes to Landlord when they enter the Pub
+    Another handshake when they leave the Pub
+  Receive:
+    Glasses, cups or refusals from the order queue
+    Last call message from Landlord
+    

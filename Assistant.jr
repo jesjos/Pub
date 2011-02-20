@@ -3,6 +3,12 @@ import java.util.ArrayList;
 import java.util.ArrayDeque;
 import java.util.Collection;
 
+
+/**
+ * Simulates an assistant in a pub.
+ * @author Anmar Khazal
+ * @author Jesper Josefson
+ */
 public class Assistant {
   private ArrayList<Table> tables;
   private ArrayDeque<ServingArea.Glass> glasses = new ArrayDeque<ServingArea.Glass>();
@@ -24,6 +30,9 @@ public class Assistant {
     this.pubIsEmpty = pubIsEmpty;
   }
   
+  /* Main loop
+   * Cleans tables sequentially. Checks if pub is empty
+   */
   process work {
     int nTables = Constants.N_OF_TABLES;
     int i = 0;
@@ -57,6 +66,7 @@ public class Assistant {
     System.out.println("Cleaning table number " + i);
     Table t = tables.get(i);
     
+    // Get all glasses from the table
     ServingArea.Glass glass;
     glass = t.getGlass();
     while (glass != null) {
@@ -64,6 +74,7 @@ public class Assistant {
       glass = t.getGlass();
     }
     
+    // Get all cups from the table
     ServingArea.Cup cup;
     cup = t.getCup();
     while (cup != null) {
@@ -71,15 +82,13 @@ public class Assistant {
       cup = t.getCup();
     }
     
-    System.out.println("Assistant: I've got " + glasses.size() + " glasses and " + cups.size() + " cups.");
-    
     // Go wash the glasses
-    
     for (ServingArea.Glass g : glasses) {
       send clock.setAlarm(alarm, Constants.WASH);
       receive alarm();
     }
     
+    // Wash the cups
     for (ServingArea.Cup c : cups) {
       send clock.setAlarm(alarm, Constants.WASH);
       receive alarm();
@@ -92,14 +101,11 @@ public class Assistant {
       receive alarm();
     }
     
-    System.out.println("Cups size " + cups.size());
     while (cups.peek() != null){
       call sa.replaceCup(cups.poll());
       send clock.setAlarm(alarm, Constants.REPLACE);
       receive alarm();
     }
-    
-    System.out.println("After table clean: size Glasses " + glasses.size() + " size Cups " + cups.size());
     
   }
   

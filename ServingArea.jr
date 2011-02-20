@@ -9,18 +9,18 @@ public class ServingArea {
 
   public op void replaceGlass(Glass); 
   public op void replaceCup(Cup);
+  
+  public op Glass getGlass();
+  public op Cup getCup();
 
   public op int howManyCupsLeft();
   public op int howManyGlassesLeft();
   public op void closeServingArea();
   
-  public op Glass getGlass();
-  public op Cup getCup();
   public op void milk();
   public op void coffee();
   public op void choco();
   public op void tap();
-  private cap void ()[] singleResources = new cap void ()[4];
 
   private Clock clock;
 
@@ -34,11 +34,6 @@ public class ServingArea {
       glasses.add(new Glass());
     for (int i = 0; i < Constants.CUPS; i++)
       cups.add(new Cup());
-
-    singleResources[Constants.MILK] = milk;
-    singleResources[Constants.COFFEE] = coffee;
-    singleResources[Constants.CHOCO] = choco;
-    singleResources[Constants.TAP] = tap;
 
     // Initialize single resources for use
     send milk();
