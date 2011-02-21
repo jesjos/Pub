@@ -37,6 +37,9 @@ public class Landlord extends Server {
    * Without the st:s, the landlord would probably keep servicing orders, since that queue generally
    * has a large backlog of messages.
    */
+  public void getT(){
+	  System.out.println(clock.getTime());  
+  }
   private process serve {
     boolean closed = false;
     Resource drink = null;
@@ -49,9 +52,10 @@ public class Landlord extends Server {
     	}
     	[] void closingTime() {
     		System.out.println(closingMessage);
+    		getT();
     		closed = true;
     	}
-    	[] Resource orderQueue(Constants.Order order, MyTime orderStartTime) st closingTime.length() == 0 {
+    	[] Resource orderQueue(Constants.Order order, MyTime orderStartTime) st (closingTime.length() == 0 || lastCall.length() == 0)  {
     		if (closed) {
     			return new Refusal();
     		} else {
@@ -66,23 +70,25 @@ public class Landlord extends Server {
     	}
     	/* Adds customers to the customer list. 
     	 * Removes a customer from the list if the customer handshakes again */
-    	[] void handshakeQueue (Customer customer) st closingTime.length() == 0 {
+    	[] void handshakeQueue (Customer customer) st (closingTime.length() == 0 || lastCall.length() == 0){
     		if(customers.contains(customer)) {
     			customers.remove(customer);
     			System.out.println("Someone left, now " + customers.size() + " customers left.");
+    			getT();
     		}
     		else {
     			customers.add(customer);
     			totalCustomers++;
     		}
     	}
-    	[] void statistics (MyTime orderTime) st closingTime.length() == 0 {
+    	[] void statistics (MyTime orderTime) st (closingTime.length() == 0 || lastCall.length() == 0) {
     		stats.add(orderTime);
     	}   
 
     } // -- end while
 
     System.out.println("Sending pub is empty");
+    getT();
     send pubIsEmpty();
 
     receive assistantDone();
