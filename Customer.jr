@@ -38,7 +38,7 @@ public class Customer {
       t = new MyTime(clock.getTime().getValue());
       drink = orderQueue(myOrder, t);
       if (drink instanceof Landlord.Refusal) {
-        System.out.println("Customer says: I was refused!!!! I'll return later with an AK-47 and blast the place.");
+        System.out.println("Customer says: I was refused!!");
         break;
       }
       numberOfDrinks++;
