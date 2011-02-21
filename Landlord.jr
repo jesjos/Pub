@@ -52,7 +52,7 @@ public class Landlord extends Server {
     		System.out.println(closingMessage);
     		closed = true;
     	}
-    	[] Resource orderQueue(Constants.Order order, MyTime orderStartTime) st (closingTime.length() == 0 || lastCall.length() == 0)  {
+    	[] Resource orderQueue(Constants.Order order, MyTime orderStartTime) st (closingTime.length() == 0 && lastCall.length() == 0)  {
     		if (closed) {
     			return new Refusal();
     		} else {
@@ -67,7 +67,7 @@ public class Landlord extends Server {
     	}
     	/* Adds customers to the customer list. 
     	 * Removes a customer from the list if the customer handshakes again */
-    	[] void handshakeQueue (Customer customer) st (closingTime.length() == 0 || lastCall.length() == 0){
+    	[] void handshakeQueue (Customer customer) st (closingTime.length() == 0 && lastCall.length() == 0){
     		if(customers.contains(customer)) {
     			customers.remove(customer);
     			System.out.println("Someone left, now " + customers.size() + " customers left.");
@@ -77,7 +77,7 @@ public class Landlord extends Server {
     			totalCustomers++;
     		}
     	}
-    	[] void statistics (MyTime orderTime) st (closingTime.length() == 0 || lastCall.length() == 0) {
+    	[] void statistics (MyTime orderTime) st (closingTime.length() == 0 && lastCall.length() == 0) {
     		stats.add(orderTime);
     	}   
 

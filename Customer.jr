@@ -42,7 +42,11 @@ public class Customer {
         break;
       }
       numberOfDrinks++;
-           
+      
+      // Clean out surplus alarm generated from beer drinker interrupted
+      while (alarm.length() > 0)
+        receive alarm();
+      
       // Go to table
       // Drink
       // Beer drinkers need to be able to interrupt their drinking
