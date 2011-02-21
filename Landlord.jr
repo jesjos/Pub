@@ -38,7 +38,6 @@ public class Landlord extends Server {
    * has a large backlog of messages.
    */
   private process serve {
-    boolean customersLeft = true;
     boolean closed = false;
     Resource drink = null;
     

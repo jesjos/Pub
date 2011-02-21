@@ -3,12 +3,6 @@ import java.util.ArrayList;
 import java.util.ArrayDeque;
 import java.util.Collection;
 
-
-/**
- * Simulates an assistant in a pub.
- * @author Anmar Khazal
- * @author Jesper Josefson
- */
 public class Assistant {
   private ArrayList<Table> tables;
   private ArrayDeque<ServingArea.Glass> glasses = new ArrayDeque<ServingArea.Glass>();

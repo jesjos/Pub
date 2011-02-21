@@ -1,6 +1,3 @@
-/**
- * A class containing constants used in the pub app.
- */
 
 public class Constants {
   

@@ -1,7 +1,7 @@
 import edu.ucdavis.jr.*;
 
 /**
- * Super class that collects shared methods and varibables of a server in a Pub.
+ * Super class that collects shared methods and variables of a server in a Pub.
  */
 public abstract class Server { 
   protected cap Resource (Constants.Order, MyTime) orderQueue;

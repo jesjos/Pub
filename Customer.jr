@@ -3,21 +3,15 @@ import edu.ucdavis.jr.*;
 public class Customer {
   private cap Resource (Constants.Order, MyTime) orderQueue;
   private cap void (Customer) handShake;
-  private op Resource order (Constants.Order) ;
+  private op Resource order (Constants.Order);
   public op void lastCall ();
   private cap void (ServingArea.Glass) putGlass;
   private cap void (ServingArea.Cup) putCup;
-
   private Resource drink;
   private Clock clock;
-
   private int numberOfDrinks;
-
   private op void alarm ();
-  private op void isDrinking (boolean);
   private Constants.Order myOrder;
-
-  boolean drinker;
 
   public Customer(
     cap Resource (Constants.Order, MyTime) orderQueue,
@@ -31,9 +25,7 @@ public class Customer {
 
     putCup = favouriteTable.getPutCup();
     putGlass = favouriteTable.getPutGlass();
-
     numberOfDrinks = 0;
-    drinker = false;
 
     myOrder = Constants.Order.values()[(int) (Math.random() * 3)];
 
@@ -51,8 +43,15 @@ public class Customer {
       }
       numberOfDrinks++;
       
+      // Clean out surplus alarm generated from beer drinker interrupted
+      while (alarm.length() > 0)
+        receive alarm();
+      
       // Go to table
       // Drink
+      // Beer drinkers need to be able to interrupt their drinking
+      // in order to respond to the last call
+      
       send clock.setAlarm(alarm, Constants.DRINK_TIME);
       inni void alarm();
       [] void lastCall() st (myOrder == Constants.Order.BEER) {
