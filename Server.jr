@@ -35,6 +35,7 @@ public abstract class Server {
     receive sa.tap();
     
     // Wait for beer to pour
+    System.out.println(this.getClass().getName() + " is pouring a beer");
     clock.setAlarm(alarm , Constants.POURBEER);
     receive alarm();
     
@@ -45,7 +46,7 @@ public abstract class Server {
   
   protected ServingArea.Cup getCappu() {
     ServingArea.Cup cup;
-    System.out.println(this.getClass().getName() + "Servicing order");
+    System.out.println(this.getClass().getName() + " is servicing order");
     
     cup = sa.getCup();
     
@@ -60,7 +61,7 @@ public abstract class Server {
     receive alarm();
     
     // Mix coffee
-    System.out.println(this.getClass().getName() + "Is pouring a cappucino");
+    System.out.println(this.getClass().getName() + " is pouring a cappucino");
     clock.setAlarm(alarm , Constants.MIXCOFFEE);
     receive alarm();
     
@@ -73,7 +74,7 @@ public abstract class Server {
   
   protected ServingArea.Cup getChoco() {
     ServingArea.Cup cup;
-    System.out.println(this.getClass().getName() + "Servicing order");
+    System.out.println(this.getClass().getName() + " is servicing order");
     
     cup = sa.getCup();
     
@@ -88,7 +89,7 @@ public abstract class Server {
     receive alarm();
     
     // Mix hot chocolate and wait
-    System.out.println(this.getClass().getName() + "Is pouring a choco");
+    System.out.println(this.getClass().getName() + " is pouring a choco");
     clock.setAlarm(alarm , Constants.MIXCHOCO);
     receive alarm();
     
