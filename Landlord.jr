@@ -84,7 +84,6 @@ public class Landlord extends Server {
     } // -- end while
 
     System.out.println("Sending pub is empty");
-    getT();
     send pubIsEmpty();
 
     receive assistantDone();
