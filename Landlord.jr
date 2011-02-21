@@ -55,7 +55,6 @@ public class Landlord extends Server {
     		if (closed) {
     			return new Refusal();
     		} else {
-    			System.out.println("Start: " + clock.getTime());
     			switch (order) {
     			case BEER  :  drink = getBeer(); break;
     			case CAPPU :  drink = getCappu(); break;
