@@ -13,7 +13,7 @@ public class Clock {
   private MyTime currentTime;
   private int ms;
   private Map<MyTime, Set<cap void()>> alarms = new HashMap<MyTime, Set<cap void()>>();
-  private MyTime endTime;
+  public MyTime endTime;
 
   private op void stopTicker();
 
