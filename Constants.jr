@@ -34,6 +34,8 @@ public class Constants {
   
   // Pub
   public static final int NUMBER_OF_STAFF = 3;
+  public static final MyTime CLOSING_TIME = new MyTime(4,0,0);
+  public static final MyTime LAST_CALL = new MyTime(CLOSING_TIME.getValue() - 60*10);
   
   public enum Order {
     BEER, CAPPU, CHOCO;
