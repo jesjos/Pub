@@ -50,7 +50,6 @@ public class Customer {
       // in order to respond to the last call
       
       send clock.setAlarm(alarm, Constants.DRINK_TIME);
-      System.out.println("Length of alarm channel: " + alarm.length());
       inni void alarm();
       [] void lastCall() st (myOrder == Constants.Order.BEER) {
         numberOfDrinks = 4;
