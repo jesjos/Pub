@@ -10,7 +10,6 @@ public class Customer {
   private Resource drink;
   private Clock clock;
   private int numberOfDrinks;
-  private op void alarm ();
   private Constants.Order myOrder;
 
   public Customer(
@@ -35,6 +34,8 @@ public class Customer {
   process mainLoop {
     MyTime t; 
     while (numberOfDrinks < Constants.MAX_DRINKS) {
+      // Create new alarm channel for every iteration, this eliminates the problem of surplus alarms
+      op void alarm();
       t = new MyTime(clock.getTime().getValue());
       drink = orderQueue(myOrder, t);
       if (drink instanceof Landlord.Refusal) {
@@ -43,16 +44,13 @@ public class Customer {
       }
       numberOfDrinks++;
       
-      // Clean out surplus alarm generated from beer drinker interrupted
-      while (alarm.length() > 0)
-        receive alarm();
-      
       // Go to table
       // Drink
       // Beer drinkers need to be able to interrupt their drinking
       // in order to respond to the last call
       
       send clock.setAlarm(alarm, Constants.DRINK_TIME);
+      System.out.println("Length of alarm channel: " + alarm.length());
       inni void alarm();
       [] void lastCall() st (myOrder == Constants.Order.BEER) {
         numberOfDrinks = 4;
